@@ -33,6 +33,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Ignore artifacts:
+build
+coverage
+
 # Misc
 .DS_Store
 *.pem
