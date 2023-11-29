@@ -14,16 +14,6 @@ router.get("/", async (req: Request, res: Response) => {
   }
 })
 
-router.get("/", async (req: Request, res: Response) => {
-  try {
-    const users = await getAllUsers()
-    return res.status(200).json(users)
-  } catch (error) {
-    console.log(error)
-    return res.status(500).json(error)
-  }
-})
-
 router.post("/", async (req: Request, res: Response) => {
   try {
     const users = await getAllUsers()
