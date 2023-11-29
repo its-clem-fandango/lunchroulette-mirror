@@ -12,7 +12,7 @@ export async function getAllUsers () {
   return users
 }
 
-export async function createUser (id: number, firstName: string, lastName: string) {
+export async function createUser (id: string, firstName: string, lastName: string) {
   const newUser = await addDoc(collection(db, "users"), {
     id,
     firstName,
@@ -21,13 +21,13 @@ export async function createUser (id: number, firstName: string, lastName: strin
   return newUser
 }
 
-export async function updateUser (id: number, firstName: string, lastName: string) {
-  const userIdAsString = String(id)
+// export async function updateUser (updatedUser) {
 
-  const userRef = doc(db, "users", userIdAsString)
+//   const ref = doc(db, 'users', updatedUser.id)
 
-  await updateDoc(userRef, {
-    firstName: firstName,
-    lastName: lastName
-  })
-}
+//   await updateDoc(ref, {
+//     firstName,
+//     lastName
+//   })
+//   return ref
+// }
