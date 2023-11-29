@@ -1,8 +1,5 @@
-import Header1 from "@/components/Header1"
-import { Button } from "@/components/ui/button"
 import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import React from "react"
 import { Link } from "react-router-dom"
 
 function App() {
