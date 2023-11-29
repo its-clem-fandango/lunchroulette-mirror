@@ -1,16 +1,31 @@
 import Header1 from "@/components/Header1"
 import { Button } from "@/components/ui/button"
+import CreateProfile from "./pages/CreateProfile"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import React from "react"
+import { Link } from "react-router-dom"
 
 function App() {
   return (
-    <div className="gap-5 flex flex-col justify-center items-center">
-      <h1 className="py-5 my-5 mx-4 bg-pink-500 text-3xl font-semibold text-yellow-500">
-        Hello World
-      </h1>
-      <p>Hello World</p>
-      <Header1 className="p-20">This is a Header 1</Header1>
-      <Button className="p-4">Click me</Button>
-    </div>
+    <Router>
+      <>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<h1>homepage</h1>}></Route>
+          <Route path="/profile" element={<CreateProfile />}></Route>
+        </Routes>
+      </>
+    </Router>
   )
 }
 
