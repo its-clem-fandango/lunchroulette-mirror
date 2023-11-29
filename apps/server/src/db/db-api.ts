@@ -1,8 +1,8 @@
 import { collection, getDocs, addDoc } from "firebase/firestore"
 import db from "./firebase"
 
-const firstName = 'Jane'
-const lastName = 'Doe'
+const firstName: string = 'Jane'
+const lastName: string = 'Doe'
 
 export async function getAllUsers () {
   const usersRef = collection(db, "users")

@@ -5,17 +5,27 @@ const app = express()
 const PORT = 8080
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World")
+  res.status(200).json({ message: 'Welcome to the Lunch Roulette API' })
 })
 
 app.get("/users", async (req: Request, res: Response) => {
-  const users = await getAllUsers()
-  res.json(users)
+  try {
+    const users = await getAllUsers()
+    res.status(200).json(users)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
 })
 
 app.post("/users", async (req: Request, res: Response) => {
-  const newUsers = await createUser()
-  res.json(newUsers)
+  try {
+    const newUser = await createUser()
+    res.status(201).json(newUser)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
 })
 
 app.listen(PORT, () => {
