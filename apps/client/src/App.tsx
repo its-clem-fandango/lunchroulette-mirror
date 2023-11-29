@@ -1,9 +1,9 @@
-import Header1 from "@/components/Header1"
-import { Button } from "@/components/ui/button"
 import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import React from "react"
 import { Link } from "react-router-dom"
+import Homepage from "./pages/Homepage"
+
+
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<h1>homepage</h1>}></Route>
+          <Route path="/" element={<Homepage />}></Route>
           <Route path="/profile" element={<CreateProfile />}></Route>
         </Routes>
       </>
