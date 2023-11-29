@@ -1,5 +1,5 @@
-import Header1 from "@/components/Header1";
-import { Button } from "@/components/ui/button";
+import Header1 from "@/components/Header1"
+import { Button } from "@/components/ui/button"
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Header1 className="p-20">This is a Header 1</Header1>
       <Button className="p-4">Click me</Button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
