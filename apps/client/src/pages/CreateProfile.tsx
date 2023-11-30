@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { apiUrl } from "@/lib/constants"
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -71,6 +72,13 @@ export default function CreateProfile() {
   //define submit handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(`Here's my object:`, values)
+
+    const requestOptions: RequestInit = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    }
+    fetch(`${apiUrl}/users`, requestOptions)
   }
 
   return (
@@ -130,7 +138,7 @@ export default function CreateProfile() {
                       <SelectContent>
                         <SelectItem value="arol.dev">arol.dev</SelectItem>
                         <SelectItem value="Cooltra">cooltra</SelectItem>
-                        <SelectItem value="impact">maximum impact</SelectItem>
+                        <SelectItem value="impact">impact</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
