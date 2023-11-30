@@ -6,16 +6,18 @@ function App() {
   return (
     <Router>
       <>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-          </ul>
-        </nav>
+        <div className="min-h-sc">
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
         <Routes>
           <Route path="/" element={<h1>homepage</h1>}></Route>

@@ -2,6 +2,15 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -25,6 +34,7 @@ import {
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
+  //image thread: https://github.com/colinhacks/zod/issues/387
   avatar: z
     .any()
     .refine((file) => file.length == 1, "Image is required.")
@@ -65,84 +75,97 @@ export default function CreateProfile() {
   }
 
   return (
-    <div className="">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter your first name..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter your last name..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="companyName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a verified company to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="arol.dev">arol.dev</SelectItem>
-                    <SelectItem value="Cooltra">cooltra</SelectItem>
-                    <SelectItem value="impact">maximum impact</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="avatar"
-            render={({ field }) => (
-              <FormItem>
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <FormLabel htmlFor="picture">Profile Picture</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="picture"
-                      type="file"
-                      accept="image/jpeg, image/png, image/webp"
-                      {...fileRef}
-                    />
-                  </FormControl>
-                  <FormDescription>This will be your avatar...</FormDescription>
-                </div>
-              </FormItem>
-            )}
-          />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>About Me</CardTitle>
+          <CardDescription>Tell us a little about yourself</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>First Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your first name..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your last name..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="companyName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a verified company to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="arol.dev">arol.dev</SelectItem>
+                        <SelectItem value="Cooltra">cooltra</SelectItem>
+                        <SelectItem value="impact">maximum impact</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="avatar"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                      <FormLabel htmlFor="picture">Profile Picture</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="picture"
+                          type="file"
+                          accept="image/jpeg, image/png, image/webp"
+                          {...fileRef}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        This will be your avatar...
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
 
-          <Button type="submit">Continue</Button>
-        </form>
-      </Form>
+              <Button type="submit">Continue</Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   )
 }
