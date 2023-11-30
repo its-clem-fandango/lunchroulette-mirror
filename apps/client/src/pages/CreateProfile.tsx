@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -15,14 +14,12 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -69,8 +66,7 @@ export default function CreateProfile() {
 
   //************FILE UPLOAD**************** */
   //const fileRef = form.register("avatar", { required: true })
-
-  console.log(form.watch())
+  //console.log(form.watch())
 
   //define submit handler
   function onSubmit(values: z.infer<typeof formSchema>) {
