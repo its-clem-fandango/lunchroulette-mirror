@@ -7,8 +7,10 @@ export default function TimePreferences() {
             <h1 className="text-3xl text-amber-900 text-center">Time Preferences </h1>
             <form className="text-center" action="" method="post">
                 <select name="" id="">
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
+                    <option value="Wednesday">Wednesday 1pm to 2pm</option>
+                    <option value="Wednesday">Wednesday 2pm to 3pm</option>
+                    <option value="Thursday">Thursday 1pm to 2pm</option>
+                    <option value="Thursday">Thursday 2pm to 3pm</option>
                 </select>
 
                 <div className="text-center">

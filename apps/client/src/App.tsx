@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import TimePreferences from "./pages/Timepreferences"
+import LunchConfirmation from "./pages/LunchTodayConfirmation"
 
 
 
@@ -12,14 +13,14 @@ function App() {
       <>
         {/* NAVIGATION */}
         <nav >
-          <ul className="flex hover:bg-blue-500">
+          <ul className="flex">
             <li className="p-8">
               <Link className="text-2xl" to="/">Home</Link>
             </li>
             <li className="p-8">
               <Link className="text-2xl" to="/profile">Profile</Link>
             </li>
-            <li className="p-8 text-lime-200">
+            <li className="p-8">
               <Link className="text-2xl" to="/preferences">Time Preferences</Link>
             </li>
           </ul>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Homepage />}></Route>
           <Route path="/profile" element={<CreateProfile />}></Route>
           <Route path="/preferences" element={<TimePreferences />}></Route>
+          <Route path="/lunch" element={<LunchConfirmation />}></Route>
         </Routes>
       </>
     </Router>
