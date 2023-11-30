@@ -2,6 +2,7 @@ import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
+import TimePreferences from "./pages/Timepreferences"
 
 
 
@@ -9,20 +10,27 @@ function App() {
   return (
     <Router>
       <>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+        {/* NAVIGATION */}
+        <nav >
+          <ul className="flex hover:bg-blue-500">
+            <li className="p-8">
+              <Link className="text-2xl" to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/profile">Profile</Link>
+            <li className="p-8">
+              <Link className="text-2xl" to="/profile">Profile</Link>
+            </li>
+            <li className="p-8 text-lime-200">
+              <Link className="text-2xl" to="/preferences">Time Preferences</Link>
             </li>
           </ul>
         </nav>
 
+
+        {/* ROUTES */}
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
           <Route path="/profile" element={<CreateProfile />}></Route>
+          <Route path="/preferences" element={<TimePreferences />}></Route>
         </Routes>
       </>
     </Router>
