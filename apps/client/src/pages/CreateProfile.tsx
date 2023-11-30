@@ -168,6 +168,5 @@ export default function CreateProfile() {
           </Form>
         </CardContent>
       </Card>
-    </div>
   )
 }
