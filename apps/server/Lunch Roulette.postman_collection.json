@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "d20da6cc-06b4-4ecb-9e2f-c26a50cf1f5c",
+		"name": "Lunch Roulette",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28357680",
+		"_collection_link": "https://crimson-capsule-384533.postman.co/workspace/My-Workspace~fbedf7f4-1018-4074-8153-6d9a70faa4ea/collection/30719000-d20da6cc-06b4-4ecb-9e2f-c26a50cf1f5c?action=share&source=collection_link&creator=28357680"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "CREATE COMPANY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyName\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/companies",
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE COMPANY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/companies",
+							"path": [
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE TIME SLOTS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dayOfWeek\":\"\",\n    \"timeOfDay\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/timeslots",
+							"path": [
+								"timeslots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/users/id",
+							"path": [
+								"users",
+								"id"
+							]
+						},
+						"description": "send response \"user X successfully deleted\""
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE TIME SLOTS",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dayOfWeek\":\"\",\n    \"timeOfDay\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/timeslots",
+							"path": [
+								"timeslots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE QUICK MESSAGE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageTitle\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/quickmessages",
+							"path": [
+								"quickmessages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE QUICK MESSAGE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/quickmessages/id",
+							"path": [
+								"quickmessages",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ QUICK MESSAGES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/quickmessages",
+							"path": [
+								"quickmessages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"\",\n    \"password\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/signup",
+					"path": [
+						"signup"
+					]
+				},
+				"description": "This is the login stage. Return 201 if user added successfully. Returns same INFO + ID automatically assigned by our schema\n\n400 if user already exists\n\n500 for server error"
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE USER INFO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"companyName\": \"\",\n    \"interests\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "users/id",
+					"host": [
+						"users"
+					],
+					"path": [
+						"id"
+					]
+				},
+				"description": "We need to upload the profile picture"
+			},
+			"response": []
+		},
+		{
+			"name": "TIME SLOTS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "/timeslots",
+					"path": [
+						"timeslots"
+					]
+				},
+				"description": "We're going to get:\n\ntime slots available (1-2, 2-3pm)\n\n200 if we get the time slots back\n\n400 if its a bad get request\n\n404 if there are no timeslots found\n\n500 if server is down/error"
+			},
+			"response": []
+		},
+		{
+			"name": "SAME DAY POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/users/id/timeslots",
+					"path": [
+						"users",
+						"id",
+						"timeslots"
+					]
+				},
+				"description": "ID will come from URL"
+			},
+			"response": []
+		},
+		{
+			"name": "SET SCHEDULE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"daysChosen\": \"\",\n    \"timeOfMeetingChosen\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/users/id/timeslots",
+					"path": [
+						"users",
+						"id",
+						"timeslots"
+					]
+				},
+				"description": "ID will come from URL"
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE SCHEDULE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"daysChosen\": \"\",\n    \"timeOfMeetingChosen\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/users/id/timeslots",
+					"path": [
+						"users",
+						"id",
+						"timeslots"
+					]
+				},
+				"description": "ID will come from URL"
+			},
+			"response": []
+		},
+		{
+			"name": "CONFIRM MEETING",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"confirmMeeting\": \"true\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/users/id/timeslots",
+					"path": [
+						"users",
+						"id",
+						"timeslots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CANCEL MEETING",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"confirmMeeting\": \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/users/id/timeslots",
+					"path": [
+						"users",
+						"id",
+						"timeslots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MEETING INFO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": \"meet in main lobby\",\n    \"dateOfMeeting\": \"\",\n    \"timeOfMeeting\":\"\",\n    \"presetMessages\": [],\n    \"participants\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "users/id/meetings",
+					"host": [
+						"users"
+					],
+					"path": [
+						"id",
+						"meetings"
+					]
+				},
+				"description": "get preset messages \"I'm running a little late!\""
+			},
+			"response": []
+		},
+		{
+			"name": "MEETING PARTICIPANT INFO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"\",\n    \"lastName\": \"\",\n    \"profilePicture\": \"\",\n    \"interests\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "users/id/meetings/participants",
+					"host": [
+						"users"
+					],
+					"path": [
+						"id",
+						"meetings",
+						"participants"
+					]
+				},
+				"description": "get preset messages \"I'm running a little late!\""
+			},
+			"response": []
+		}
+	]
+}
