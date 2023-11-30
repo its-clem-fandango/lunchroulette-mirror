@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import TimePreferences from "./pages/Timepreferences"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
+import Interests from "./pages/Interests"
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
               Time Preferences
             </Link>
           </li>
+          <li className="p-8">
+            <Link className="text-2xl" to="/interests">
+              Interests
+            </Link>
+          </li>
         </ul>
       </nav>
 
@@ -33,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/profile" element={<CreateProfile />}></Route>
+        <Route path="/interests" element={<Interests />}></Route>
         <Route path="/preferences" element={<TimePreferences />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
       </Routes>
