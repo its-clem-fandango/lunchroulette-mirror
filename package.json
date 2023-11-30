@@ -24,7 +24,5 @@
     "apps/*",
     "packages/*"
   ],
-  "dependencies": {
-    "node": "^21.2.0"
-  }
+  "dependencies": {}
 }
