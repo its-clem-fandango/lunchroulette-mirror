@@ -1,8 +1,6 @@
-import { collection, doc, getDocs, addDoc, updateDoc } from "firebase/firestore"
+import { collection, doc, getDocs, addDoc, writeBatch } from "firebase/firestore"
 import db from "./firebase"
-
-const firstName: string = 'Jane'
-const lastName: string = 'Doe'
+import { v4 as uuid } from 'uuid'
 
 export async function getAllUsers () {
   const usersRef = collection(db, "users")
@@ -21,13 +19,17 @@ export async function createUser (firstName: string, lastName: string, companyNa
   return newUser
 }
 
-// export async function updateUser (updatedUser) {
+export async function createMultipleUsers (usersData: any) {
+  const batch = writeBatch(db)
 
-//   const ref = doc(db, 'users', updatedUser.id)
+  // Can also use this usersRef.path to achieve the same
+  // const usersRef = collection(db, 'users')
+  // const docRef = doc(db, usersRef.path)
 
-//   await updateDoc(ref, {
-//     firstName,
-//     lastName
-//   })
-//   return ref
-// }
+  usersData.forEach((userData: any) => {
+    const docRef = doc(db, 'users', uuid())
+    console.log(docRef.id)
+    batch.set(docRef, userData)
+  })
+  await batch.commit()
+}
