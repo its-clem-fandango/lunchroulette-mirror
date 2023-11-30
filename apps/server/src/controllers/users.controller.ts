@@ -25,7 +25,7 @@ const UsersController = {
 
   async getUser(req: Request, res: Response, next: NextFunction) {
     const userId = req.params.id
-    const userRef = doc(db, userId)
+    const userRef = doc(db, "users", userId)
     const docSnapshot = await getDoc(userRef)
 
     if (docSnapshot.exists()) {
