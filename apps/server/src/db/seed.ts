@@ -7,6 +7,7 @@ export async function seed () {
 
   const users = usersTemplate.map(() => ({
     firstName: faker.person.firstName(),
-    lastName: faker.person.lastName()
+    lastName: faker.person.lastName(),
+    companyName: faker.company.name()
   }))
 }
