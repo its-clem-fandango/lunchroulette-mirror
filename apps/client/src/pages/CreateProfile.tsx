@@ -34,8 +34,9 @@ import {
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
   lastName: z.string().min(2).max(50),
+  //************FILE UPLOAD**************** */
   //image thread: https://github.com/colinhacks/zod/issues/387
-  avatar: z
+  /*   avatar: z
     .any()
     .refine((file) => file.length == 1, "Image is required.")
     .refine((file) => file.size <= 5000000, "Max file size is 5MB.")
@@ -46,7 +47,7 @@ const formSchema = z.object({
           file?.type,
           ".jpg, .jpeg, .png and .webp files are accepted.",
         ),
-    ),
+    ), */
   companyName: z.string({
     required_error: "Please select a company name",
   }),
@@ -60,12 +61,14 @@ export default function CreateProfile() {
     defaultValues: {
       firstName: "",
       lastName: "",
-      avatar: undefined,
+      //************FILE UPLOAD**************** */
+      //avatar: undefined,
       companyName: "",
     },
   })
 
-  const fileRef = form.register("avatar", { required: true })
+  //************FILE UPLOAD**************** */
+  //const fileRef = form.register("avatar", { required: true })
 
   console.log(form.watch())
 
@@ -138,7 +141,9 @@ export default function CreateProfile() {
                   </FormItem>
                 )}
               />
-              <FormField
+              {
+                //************FILE UPLOAD**************** */
+                /* <FormField
                 control={form.control}
                 name="avatar"
                 render={({ field }) => (
@@ -159,7 +164,8 @@ export default function CreateProfile() {
                     </div>
                   </FormItem>
                 )}
-              />
+              /> */
+              }
 
               <Button type="submit">Continue</Button>
             </form>
