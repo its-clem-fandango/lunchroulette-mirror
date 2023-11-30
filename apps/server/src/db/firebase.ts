@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
 
 // This object should never be edited directly.
 // It should be copied from the project settings.
@@ -11,9 +11,9 @@ const firebaseConfig = {
   messagingSenderId: "779453467612",
   appId: "1:779453467612:web:48399c174cb9e5e0b51d19",
   measurementId: "G-GBHZKX6RL7",
-} as const;
+} as const
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app = initializeApp(firebaseConfig)
+const db = getFirestore(app)
 
-export default db;
+export default db
