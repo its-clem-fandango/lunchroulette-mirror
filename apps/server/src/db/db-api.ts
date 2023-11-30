@@ -12,11 +12,11 @@ export async function getAllUsers () {
   return users
 }
 
-export async function createUser (id: string, firstName: string, lastName: string) {
+export async function createUser (firstName: string, lastName: string, companyName: string) {
   const newUser = await addDoc(collection(db, "users"), {
-    id,
     firstName,
-    lastName
+    lastName,
+    companyName
   })
   return newUser
 }
