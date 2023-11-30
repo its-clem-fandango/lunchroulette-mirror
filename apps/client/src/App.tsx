@@ -1,4 +1,6 @@
 import CreateProfile from "./pages/CreateProfile"
+import Interests from "./pages/Interests"
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
@@ -10,7 +12,6 @@ import LunchConfirmation from "./pages/LunchTodayConfirmation"
 function App() {
   return (
     <Router>
-      <>
         {/* NAVIGATION */}
         <nav >
           <ul className="flex">
