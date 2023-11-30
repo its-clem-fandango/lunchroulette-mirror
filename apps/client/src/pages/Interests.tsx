@@ -23,6 +23,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+import { createUser } from "../../../server/src/db/db-api"
+
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
@@ -38,14 +40,18 @@ export default function Interests() {
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data)
+
     toast({
-      title: "You submitted the following interests:",
+      title: "You submitted the following values:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     })
+
+    createUser("John", "Doe", "Company SA", data.items)
   }
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
