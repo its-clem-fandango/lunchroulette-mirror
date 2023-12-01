@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { createMultipleUsers } from './db-api'
+import UsersController from '../controllers/users.controller'
 
 console.log('Seeding: ')
 seed(18)
@@ -15,5 +15,5 @@ export async function seed (n: number) {
     companyName: faker.company.name()
   }))
 
-  createMultipleUsers(users)
+  UsersController.createMultipleUsers(users)
 }
