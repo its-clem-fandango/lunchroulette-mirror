@@ -40,7 +40,9 @@ const UsersController = {
   async editUserProfile (req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.params.id
-      const updatedData = req.body
+      const updatedData = {
+        isAvailableToday: true
+      }
 
       const userRef = doc(db, "users", userId)
       await updateDoc(userRef, updatedData)
