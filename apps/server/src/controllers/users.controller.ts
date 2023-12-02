@@ -38,25 +38,51 @@ const UsersController = {
   },
 
   async editUserProfile (req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.params.id
-      const updatedData = {
-        isAvailableToday: true
+    const userId = req.params.id
+
+    // Testing with Postman x-www-form-urlencoded
+    const updatedData = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+    }
+
+    const userRef = doc(db, "users", userId)
+    await updateDoc(userRef, updatedData)
+
+    const updatedUserSnapshot = await getDoc(userRef)
+
+    if (updatedUserSnapshot.exists()) {
+      const updatedUser = updatedUserSnapshot.data()
+      res.status(200).json(updatedUser)
+    } else {
+      throw new Error("User not found.")
+    }
+
+  },
+
+  async toggleIsAvailableToday (req: Request, res: Response, next: NextFunction) {
+    const userId = req.params.id
+    const userRef = doc(db, "users", userId)
+    const docSnapshot = await getDoc(userRef)
+
+    if (docSnapshot.exists()) {
+      const user = docSnapshot.data()
+
+      if (user.isAvailableToday === true) {
+        user.isAvailableToday = false
+      } else {
+        user.isAvailableToday = true
       }
 
-      const userRef = doc(db, "users", userId)
+      const updatedData = {
+        isAvailableToday: user.isAvailableToday
+      }
+
       await updateDoc(userRef, updatedData)
 
-      const updatedUserSnapshot = await getDoc(userRef)
-
-      if (updatedUserSnapshot.exists()) {
-        const updatedUser = updatedUserSnapshot.data()
-        res.status(200).json(updatedUser)
-      } else {
-        throw new Error("User not found.")
-      }
-    } catch (e) {
-      next(e)
+      res.status(201).json(user)
+    } else {
+      throw new Error("User not found.")
     }
   },
 
@@ -75,4 +101,5 @@ const UsersController = {
     await batch.commit()
   }
 }
+
 export default UsersController
