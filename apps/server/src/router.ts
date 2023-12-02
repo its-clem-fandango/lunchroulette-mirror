@@ -1,7 +1,11 @@
+import express from "express"
 import { Router } from "express"
 import UsersController from "./controllers/users.controller"
 
 const router = Router()
+
+const app = express()
+app.use(express.urlencoded({ extended: false }))
 
 router.get("/")
 
