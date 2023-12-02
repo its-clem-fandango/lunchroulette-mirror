@@ -44,7 +44,6 @@ const UsersController = {
     const updatedData = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      companyName: req.body.companyName,
     }
 
     const userRef = doc(db, "users", userId)
