@@ -65,6 +65,87 @@ export default function CreateProfile() {
     },
   })
 
+  console.log("react hook form: ", form)
+
+  //************WITHOUT ZOD AND REACT HOOK FORM**************** */
+
+  /*   const MyForm = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+  
+    
+  const [companyName, setCompanyName] = useState('');
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+  
+      const errors = {};
+  
+      if (!firstName || firstName.length < 2 || firstName.length > 50) {
+        errors.firstName = 'First name must be between 2 and 50 characters long';
+      }
+  
+      if (!lastName || lastName.length < 2 || lastName.length > 50) {
+        errors.lastName = 'Last name must be between 2 and 50 characters long';
+      }
+  
+      if (!companyName) {
+        errors.companyName = 'Please select a company name';
+      }
+  
+      if (Object.keys(errors).length === 0) {
+        // Submit the form data
+        console.log('Form submitted:', { firstName, lastName, companyName });
+      } else {
+        // Display the errors to the user
+        alert('Please fix the following errors:');
+        for (const error in errors) {
+          alert(`- ${errors[error]}`);
+        }
+      }
+    };
+  
+    return (
+      <form
+   
+  onSubmit={handleSubmit}>
+  
+        
+  <label>First Name:</label>
+  
+        
+  <input
+  
+          
+  type="text"
+  
+          
+  value={firstName}
+  
+          
+  onChange={(event) => setFirstName(event.target.value)}
+        />
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
+        <label>Last Name:</label>
+        <input
+          type="text"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        {errors.lastName && <span className="error">{errors.lastName}</span>}
+        <label>Company Name:</label>
+        <input
+          type="text"
+          value={companyName}
+          onChange={(event) => setCompanyName(event.target.value)}
+        />
+        {errors.companyName && <span className="error">{errors.companyName}</span>}
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }; */
+  //************WITHOUT ZOD AND REACT HOOK FORM**************** */
+
   //************FILE UPLOAD**************** */
   //const fileRef = form.register("avatar", { required: true })
   //console.log(form.watch())
@@ -116,31 +197,6 @@ export default function CreateProfile() {
                     <FormControl>
                       <Input placeholder="Enter your last name..." {...field} />
                     </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="companyName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Company</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a verified company to display" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="arol.dev">arol.dev</SelectItem>
-                        <SelectItem value="Cooltra">cooltra</SelectItem>
-                        <SelectItem value="impact">impact</SelectItem>
-                      </SelectContent>
-                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
