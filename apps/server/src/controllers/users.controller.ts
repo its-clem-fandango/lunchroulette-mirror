@@ -81,8 +81,7 @@ const UsersController = {
 
       await updateDoc(userRef, updatedData)
 
-      const updatedUser = docSnapshot.data()
-      res.status(201).json(updatedUser)
+      res.status(201).json(user)
     } else {
       throw new Error("User not found.")
     }
