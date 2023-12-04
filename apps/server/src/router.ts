@@ -4,8 +4,6 @@ import UsersController from "./controllers/users.controller"
 
 const router = Router()
 
-const app = express()
-
 router.get("/")
 
 router.get("/users", UsersController.getAllUsers)
