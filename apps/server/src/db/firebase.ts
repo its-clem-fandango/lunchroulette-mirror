@@ -1,19 +1,16 @@
-import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import { initializeApp } from "firebase-admin/app"
+import { getFirestore } from "firebase-admin/firestore"
+import admin from 'firebase-admin'
+import dotenv from 'dotenv'
 
-// This object should never be edited directly.
-// It should be copied from the project settings.
-const firebaseConfig = {
-  apiKey: "AIzaSyBwg4sRMq0DAzfoU2zRaHBJDZvb4o9I-nY",
-  authDomain: "lunch-roulette-aroldev.firebaseapp.com",
-  projectId: "lunch-roulette-aroldev",
-  storageBucket: "lunch-roulette-aroldev.appspot.com",
-  messagingSenderId: "779453467612",
-  appId: "1:779453467612:web:48399c174cb9e5e0b51d19",
-  measurementId: "G-GBHZKX6RL7",
-} as const
+dotenv.config()
 
-const app = initializeApp(firebaseConfig)
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string)
+
+const app = admin.apps.length ? admin.app() : admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+})
+
 const db = getFirestore(app)
 
 export default db
