@@ -3,6 +3,8 @@ import { collection, getDocs, addDoc, updateDoc, writeBatch } from "firebase/fir
 import { doc, getDoc } from "firebase/firestore"
 import db from "../db/firebase"
 import { v4 as uuid } from "uuid"
+import createMatches from "../matchingAlgorithm"
+import User from "../models/Users"
 
 const firstName: string = "Jane"
 const lastName: string = "Doe"
@@ -100,6 +102,23 @@ const UsersController = {
     })
     await batch.commit()
   },
+
+  async getMatches (req: Request, res: Response, next: NextFunction) {
+    const usersRef = collection(db, "users")
+    const querySnapshot = await getDocs(usersRef)
+
+    const users = querySnapshot.docs.map((doc) => {
+      const user = {
+        ...doc.data(),
+        id: doc.id
+      }
+      return user as User
+    })
+
+    const matchedUsers = createMatches(users)
+
+    res.status(200).json(matchedUsers)
+  }
 }
 
 export default UsersController

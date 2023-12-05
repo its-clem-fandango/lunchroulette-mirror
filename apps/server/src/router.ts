@@ -12,9 +12,8 @@ router.get("/users/:id", UsersController.getUser)
 router.post("/users", UsersController.createUser)
 router.put("/users/profile/:id", UsersController.editUserProfile)
 router.patch("/users/availableToday/:id", UsersController.toggleIsAvailableToday)
-
 router.post("/meetings", meetingController.createMeeting)
-
 router.get("/getMatch/:id", meetingController.getMeeting)
+router.get("/matches", UsersController.getMatches)
 
 export default router
