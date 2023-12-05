@@ -3,14 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import UserMiniCard from "./MiniUserCard"
 import { cn } from "@/lib/utils"
 
-type MyMatchProps = {
+type TodaysLunchProps = {
   matches: Match[]
   time: string
   location: string
   className?: string
 }
 
-function TodaysLunch({ matches, time, location, className }: MyMatchProps) {
+function TodaysLunch({ matches, time, location, className }: TodaysLunchProps) {
   // who, when, where
 
   return (
