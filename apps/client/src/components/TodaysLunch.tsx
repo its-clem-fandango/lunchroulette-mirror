@@ -14,7 +14,7 @@ function TodaysLunch({ matches, time, location, className }: TodaysLunchProps) {
   // who, when, where
 
   return (
-    <Card className={cn("mx-10 mb-5 shadow-green-600", className)}>
+    <Card className={cn("w-[350px] mx-10 mb-5 shadow-green-600", className)}>
       <CardHeader>
         <CardTitle className="text-xl text-green-700 text-center">
           Today's Lunch

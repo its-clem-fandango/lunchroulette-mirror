@@ -4,6 +4,8 @@ import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import TimePreferences from "./pages/Timepreferences"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
+import ViewMeeting from "./pages/ViewMeeting"
+import TodaysLunch from "./components/TodaysLunch"
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
               Time Preferences
             </Link>
           </li>
+          <li className="p-8">
+            <Link className="text-2xl" to="/viewmeeting">
+              View Meeting
+            </Link>
+          </li>
         </ul>
       </nav>
 
@@ -35,6 +42,7 @@ function App() {
         <Route path="/profile" element={<CreateProfile />}></Route>
         <Route path="/preferences" element={<TimePreferences />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
+        <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
       </Routes>
     </Router>
   )
