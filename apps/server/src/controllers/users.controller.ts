@@ -1,106 +1,102 @@
 import { Request, Response, NextFunction } from "express"
-import { WriteBatch, SetOptions, ReadOptions, DocumentReference } from "firebase-admin/firestore"
 import db from "../db/firebase"
-// import { v4 as uuid } from "uuid"
-
-// import { collection, getDocs, addDoc, updateDoc, writeBatch } from "firebase/firestore"
-// import { doc, getDoc } from "firebase/firestore"
-
-const firstName: string = "Jane"
-const lastName: string = "Doe"
+import { v4 as uuid } from "uuid"
 
 const UsersController = {
   async getAllUsers (req: Request, res: Response, next: NextFunction) {
-    const usersRef = db.collection('users')
-    const snapshot = await usersRef.get()
-    const users = snapshot.docs.map((doc) => doc.data())
-    res.status(201).json(users)
+    try {
+      const usersRef = db.collection('users')
+      const snapshot = await usersRef.get()
+      const users = snapshot.docs.map((doc) => doc.data())
+      res.status(201).json(users)
+    } catch (error) {
+      res.status(400).json(error)
+    }
   },
 
-  // async createUser (req: Request, res: Response, next: NextFunction) {
-  //   const newUser = await db.collection('users').doc(req.params.id).set({
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName
-  //   })
-  //   res.status(201).json(newUser)
-  // },
+  async createUser (req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = uuid()
+      await db.collection('users').doc(userId).set({
+        // Testing with Postman x-www-form-urlencoded
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        isAvailableToday: req.body.isAvailableToday
+      })
 
-  // async getUser (req: Request, res: Response, next: NextFunction) {
-  //   const userId = req.params.id
-  //   const userRef = doc(db, "users", userId)
-  //   const docSnapshot = await getDoc(userRef)
+      const userRef = db.collection('users').doc(userId)
+      const snapshot = await userRef.get()
+      const user = snapshot.data()
+      res.status(201).json(user)
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  },
 
-  //   if (docSnapshot.exists()) {
-  //     const user = docSnapshot.data()
-  //     res.status(201).json(user)
-  //   } else {
-  //     throw new Error("User not found")
-  //   }
-  // },
+  async getUser (req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.params.id
+      const userRef = db.collection('users').doc(userId)
+      const snapshot = await userRef.get()
+      const user = snapshot.data()
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  },
 
-  // async editUserProfile (req: Request, res: Response, next: NextFunction) {
-  //   const userId = req.params.id
+  async editUserProfile (req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.params.id
+      const userRef = db.collection('users').doc(userId)
+      await userRef.update({
+        // Testing with Postman x-www-form-urlencoded
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+      })
 
-  //   // Testing with Postman x-www-form-urlencoded
-  //   const updatedData = {
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //   }
+      const snapshot = await userRef.get()
+      const user = snapshot.data()
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  },
 
-  //   const userRef = doc(db, "users", userId)
-  //   await updateDoc(userRef, updatedData)
+  async toggleIsAvailableToday (req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.params.id
+      const userRef = db.collection('users').doc(userId)
+      const snapshot = await userRef.get()
+      const user = snapshot.data()
 
-  //   const updatedUserSnapshot = await getDoc(userRef)
+      if (user) {
+        if (user.isAvailableToday === false) {
+          await userRef.update({
+            isAvailableToday: true
+          })
+        } else {
+          await userRef.update({
+            isAvailableToday: false
+          })
+        }
+      }
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  },
 
-  //   if (updatedUserSnapshot.exists()) {
-  //     const updatedUser = updatedUserSnapshot.data()
-  //     res.status(200).json(updatedUser)
-  //   } else {
-  //     throw new Error("User not found.")
-  //   }
-  // },
+  async createMultipleUsers (usersData: any) {
+    const batch = db.batch()
 
-  // async toggleIsAvailableToday (req: Request, res: Response, next: NextFunction) {
-  //   const userId = req.params.id
-  //   const userRef = doc(db, "users", userId)
-  //   const docSnapshot = await getDoc(userRef)
-
-  //   if (docSnapshot.exists()) {
-  //     const user = docSnapshot.data()
-
-  //     if (user.isAvailableToday === true) {
-  //       user.isAvailableToday = false
-  //     } else {
-  //       user.isAvailableToday = true
-  //     }
-
-  //     const updatedData = {
-  //       isAvailableToday: user.isAvailableToday
-  //     }
-
-  //     await updateDoc(userRef, updatedData)
-
-  //     res.status(201).json(user)
-
-  //   } else {
-  //     res.status(404).json({ message: 'User not found.' })
-  //   }
-  // },
-
-  // async createMultipleUsers (usersData: any) {
-  //   const batch = writeBatch(db)
-
-  //   // Can also use this usersRef.path to achieve the same
-  //   // const usersRef = collection(db, 'users')
-  //   // const docRef = doc(db, usersRef.path)
-
-  //   usersData.forEach((userData: any) => {
-  //     const docRef = doc(db, "users", uuid())
-  //     console.log(docRef.id)
-  //     batch.set(docRef, userData)
-  //   })
-  //   await batch.commit()
-  // },
+    usersData.forEach((userData: any) => {
+      const userId = uuid()
+      const docRef = db.collection('users').doc(userId)
+      batch.set(docRef, userData)
+    })
+    await batch.commit()
+  },
 }
 
 export default UsersController

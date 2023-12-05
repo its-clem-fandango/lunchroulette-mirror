@@ -7,9 +7,9 @@ const router = Router()
 router.get("/")
 
 router.get("/users", UsersController.getAllUsers)
-// router.get("/users/:id", UsersController.getUser)
-// router.post("/users", UsersController.createUser)
-// router.put("/users/profile/:id", UsersController.editUserProfile)
-// router.patch("/users/availableToday/:id", UsersController.toggleIsAvailableToday)
+router.get("/users/:id", UsersController.getUser)
+router.post("/users", UsersController.createUser)
+router.put("/users/profile/:id", UsersController.editUserProfile)
+router.patch("/users/availableToday/:id", UsersController.toggleIsAvailableToday)
 
 export default router

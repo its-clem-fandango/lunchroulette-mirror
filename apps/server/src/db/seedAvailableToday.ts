@@ -13,6 +13,8 @@ export async function seed (n: number) {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     isAvailableToday: true,
+    // matchId: "c1d2e3f4-g5h6-i7j8-k9l0-m1n2o3p4q5r6",
+    // lastMatched: "2019-01-01T00:00:00.000Z",
   }))
 
   UsersController.createMultipleUsers(users)
