@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express"
+import { Request, Response } from "express"
 import db from "../db/firebase"
 import { v4 as uuid } from "uuid"
 import createMatches from "../matchingAlgorithm"
 import User from "../models/Users"
 
 const UsersController = {
-  async getAllUsers(req: Request, res: Response) {
+  async getAllUsers(_: Request, res: Response) {
     try {
       const usersRef = db.collection("users")
       const snapshot = await usersRef.get()
@@ -100,7 +100,7 @@ const UsersController = {
     await batch.commit()
   },
 
-  async getMatches(req: Request, res: Response) {
+  async getMatches(_: Request, res: Response) {
     const usersRef = db.collection("users")
     const snapshot = await usersRef.get()
 
