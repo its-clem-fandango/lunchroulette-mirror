@@ -23,6 +23,7 @@
   },
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "seed": "ts-node ./src/db/seed.ts"
+    "seed-available-today": "ts-node ./src/db/seedAvailableToday.ts",
+    "seed-not-available-today": "ts-node ./src/db/seedNotAvailableToday.ts"
   }
 }

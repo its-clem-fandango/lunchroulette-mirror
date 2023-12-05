@@ -10,6 +10,6 @@ router.get("/users", UsersController.getAllUsers)
 router.get("/users/:id", UsersController.getUser)
 router.post("/users", UsersController.createUser)
 router.put("/users/profile/:id", UsersController.editUserProfile)
-router.put("/users/availableToday/:id", UsersController.toggleIsAvailableToday)
+router.patch("/users/availableToday/:id", UsersController.toggleIsAvailableToday)
 
 export default router
