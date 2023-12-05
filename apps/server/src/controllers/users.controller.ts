@@ -5,7 +5,7 @@ import createMatches from "../matchingAlgorithm"
 import User from "../models/Users"
 
 const UsersController = {
-  async getAllUsers(req: Request, res: Response, next: NextFunction) {
+  async getAllUsers(req: Request, res: Response) {
     try {
       const usersRef = db.collection("users")
       const snapshot = await usersRef.get()
@@ -16,7 +16,7 @@ const UsersController = {
     }
   },
 
-  async createUser(req: Request, res: Response, next: NextFunction) {
+  async createUser(req: Request, res: Response) {
     try {
       const userId = uuid()
       await db.collection("users").doc(userId).set({
@@ -35,7 +35,7 @@ const UsersController = {
     }
   },
 
-  async getUser(req: Request, res: Response, next: NextFunction) {
+  async getUser(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const userRef = db.collection("users").doc(userId)
@@ -47,7 +47,7 @@ const UsersController = {
     }
   },
 
-  async editUserProfile(req: Request, res: Response, next: NextFunction) {
+  async editUserProfile(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const userRef = db.collection("users").doc(userId)
@@ -65,11 +65,7 @@ const UsersController = {
     }
   },
 
-  async toggleIsAvailableToday(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  async toggleIsAvailableToday(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const userRef = db.collection("users").doc(userId)
@@ -104,7 +100,7 @@ const UsersController = {
     await batch.commit()
   },
 
-  async getMatches(req: Request, res: Response, next: NextFunction) {
+  async getMatches(req: Request, res: Response) {
     const usersRef = db.collection("users")
     const snapshot = await usersRef.get()
 
