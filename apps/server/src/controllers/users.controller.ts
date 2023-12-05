@@ -58,7 +58,6 @@ const UsersController = {
     } else {
       throw new Error("User not found.")
     }
-
   },
 
   async toggleIsAvailableToday (req: Request, res: Response, next: NextFunction) {
@@ -82,8 +81,9 @@ const UsersController = {
       await updateDoc(userRef, updatedData)
 
       res.status(201).json(user)
+
     } else {
-      throw new Error("User not found.")
+      res.status(404).json({ message: 'User not found.' })
     }
   },
 
@@ -123,7 +123,6 @@ const UsersController = {
 
     res.status(200).json(matchedUsers)
   }
-
 }
 
 export default UsersController
