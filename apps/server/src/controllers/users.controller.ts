@@ -6,7 +6,7 @@ const UsersController = {
   async getAllUsers(_: Request, res: Response) {
     try {
       const users = await UserModel.findAll()
-      res.status(201).json(users)
+      res.status(200).json(users)
     } catch (error) {
       res.status(400).json(error)
     }
