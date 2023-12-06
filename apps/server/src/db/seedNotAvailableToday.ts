@@ -5,8 +5,6 @@ console.log("Seeding: ")
 seed(18)
 
 export async function seed(n: number) {
-  const userKey = "users"
-
   const usersTemplate = new Array(n).fill("")
 
   const users = usersTemplate.map(() => ({
