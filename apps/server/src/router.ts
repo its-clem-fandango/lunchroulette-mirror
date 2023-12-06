@@ -1,7 +1,7 @@
 // import express from "express"
 import { Router } from "express"
 import UsersController from "./controllers/users.controller"
-import meetingController from "./controllers/meeting.controller"
+import MeetingController from "./controllers/meeting.controller"
 
 const router = Router()
 
@@ -13,8 +13,8 @@ router.patch(
   "/users/availableToday/:id",
   UsersController.toggleIsAvailableToday,
 )
-router.post("/meetings", meetingController.createMeeting)
-router.get("/getMatch/:id", meetingController.getMeeting)
+router.post("/meetings", MeetingController.createMeeting)
+router.get("/getMatch/:id", MeetingController.getMeeting)
 router.get("/matches", UsersController.getMatches)
 
 export default router
