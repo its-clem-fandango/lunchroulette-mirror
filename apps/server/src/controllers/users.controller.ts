@@ -2,14 +2,12 @@ import { Request, Response } from "express"
 import db from "../db/firebase"
 import { v4 as uuid } from "uuid"
 import createMatches from "../matchingAlgorithm"
-import User from "../models/Users"
+import UserModel, { User } from "../models/Users"
 
 const UsersController = {
   async getAllUsers(_: Request, res: Response) {
     try {
-      const usersRef = db.collection("users")
-      const snapshot = await usersRef.get()
-      const users = snapshot.docs.map((doc) => doc.data())
+      const users = await UserModel.findAll()
       res.status(201).json(users)
     } catch (error) {
       res.status(400).json(error)
@@ -18,17 +16,11 @@ const UsersController = {
 
   async createUser(req: Request, res: Response) {
     try {
-      const userId = uuid()
-      await db.collection("users").doc(userId).set({
-        // Testing with Postman x-www-form-urlencoded
+      const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        isAvailableToday: req.body.isAvailableToday,
-      })
-
-      const userRef = db.collection("users").doc(userId)
-      const snapshot = await userRef.get()
-      const user = snapshot.data()
+      }
+      const user = await UserModel.create(data)
       res.status(201).json(user)
     } catch (error) {
       res.status(400).json(error)
@@ -38,9 +30,7 @@ const UsersController = {
   async getUser(req: Request, res: Response) {
     try {
       const userId = req.params.id
-      const userRef = db.collection("users").doc(userId)
-      const snapshot = await userRef.get()
-      const user = snapshot.data()
+      const user = UserModel.findById(userId)
       res.status(200).json(user)
     } catch (error) {
       res.status(400).json(error)
@@ -50,15 +40,12 @@ const UsersController = {
   async editUserProfile(req: Request, res: Response) {
     try {
       const userId = req.params.id
-      const userRef = db.collection("users").doc(userId)
-      await userRef.update({
+      const data = {
         // Testing with Postman x-www-form-urlencoded
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-      })
-
-      const snapshot = await userRef.get()
-      const user = snapshot.data()
+      }
+      const user = await UserModel.update(userId, data, true)
       res.status(200).json(user)
     } catch (error) {
       res.status(400).json(error)
@@ -68,22 +55,15 @@ const UsersController = {
   async toggleIsAvailableToday(req: Request, res: Response) {
     try {
       const userId = req.params.id
-      const userRef = db.collection("users").doc(userId)
-      const snapshot = await userRef.get()
-      const user = snapshot.data()
+      const user = await UserModel.findById(userId)
 
-      if (user) {
-        if (user.isAvailableToday === false) {
-          await userRef.update({
-            isAvailableToday: true,
-          })
-        } else {
-          await userRef.update({
-            isAvailableToday: false,
-          })
-        }
-      }
-      res.status(200).json(user)
+      if (!user) throw new Error("No such user exists")
+
+      const data = { isAvailableToday: false }
+      if (!user.isAvailableToday) data.isAvailableToday = true
+
+      const updatedUser = await UserModel.update(userId, data)
+      res.status(200).json(updatedUser)
     } catch (error) {
       res.status(400).json(error)
     }
