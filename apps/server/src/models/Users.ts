@@ -5,9 +5,9 @@ export interface User {
   id: string
   firstName: string
   lastName: string
-  lastMatched: string | null
-  isAvailableToday: boolean
-  matchId: string | null
+  lastMatched?: string | null
+  isAvailableToday?: boolean
+  matchId?: string | null
 }
 
 const usersRef = db.collection("users")
@@ -54,7 +54,7 @@ const UserModel = {
     return user
   },
 
-  //* Only for seeding
+  //* ✋ ===== Only for Seeding ===== 🛑
   async createBatch(usersData: any[]) {
     const batch = db.batch()
 
