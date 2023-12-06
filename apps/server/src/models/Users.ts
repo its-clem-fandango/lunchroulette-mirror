@@ -53,6 +53,18 @@ const UserModel = {
     const user = await this.findById(id, withId)
     return user
   },
+
+  //* Only for seeding
+  async createBatch(usersData: any[]) {
+    const batch = db.batch()
+
+    usersData.forEach((userData) => {
+      const id = uuid()
+      const docRef = usersRef.doc(id)
+      batch.set(docRef, userData)
+    })
+    await batch.commit()
+  },
 }
 
 export default UserModel

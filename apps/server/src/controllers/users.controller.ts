@@ -69,17 +69,6 @@ const UsersController = {
     }
   },
 
-  async createMultipleUsers(usersData: any) {
-    const batch = db.batch()
-
-    usersData.forEach((userData: any) => {
-      const userId = uuid()
-      const docRef = db.collection("users").doc(userId)
-      batch.set(docRef, userData)
-    })
-    await batch.commit()
-  },
-
   async getMatches(_: Request, res: Response) {
     const usersRef = db.collection("users")
     const snapshot = await usersRef.get()
