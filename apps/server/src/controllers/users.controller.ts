@@ -70,19 +70,8 @@ const UsersController = {
   },
 
   async getMatches(_: Request, res: Response) {
-    const usersRef = db.collection("users")
-    const snapshot = await usersRef.get()
-
-    const users = snapshot.docs.map((doc) => {
-      const user = {
-        ...doc.data(),
-        id: doc.id,
-      }
-      return user as User
-    })
-
-    const matchedUsers = createMatches(users)
-
+    const users = await UserModel.findAll()
+    const matchedUsers = createMatches(users as User[])
     res.status(200).json(matchedUsers)
   },
 }
