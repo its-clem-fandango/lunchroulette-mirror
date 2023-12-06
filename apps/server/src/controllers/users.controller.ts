@@ -1,6 +1,4 @@
 import { Request, Response } from "express"
-import db from "../db/firebase"
-import { v4 as uuid } from "uuid"
 import createMatches from "../matchingAlgorithm"
 import UserModel, { User } from "../models/Users"
 
