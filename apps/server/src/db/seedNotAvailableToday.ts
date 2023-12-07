@@ -1,12 +1,10 @@
 import { faker } from "@faker-js/faker"
-import UsersController from "../controllers/users.controller"
+import UserModel from "../models/Users"
 
 console.log("Seeding: ")
 seed(18)
 
-export async function seed (n: number) {
-  const userKey = "users"
-
+export async function seed(n: number) {
   const usersTemplate = new Array(n).fill("")
 
   const users = usersTemplate.map(() => ({
@@ -17,5 +15,5 @@ export async function seed (n: number) {
     // lastMatched: "2019-01-01T00:00:00.000Z",
   }))
 
-  UsersController.createMultipleUsers(users)
+  UserModel.createBatch(users)
 }

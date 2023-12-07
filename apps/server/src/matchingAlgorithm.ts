@@ -1,4 +1,4 @@
-import User from "./models/Users"
+import { User } from "./models/Users"
 
 type Pair = [string, string | null]
 
