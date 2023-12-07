@@ -1,23 +1,24 @@
 import { User } from "../models/Users"
 import { sendEmail } from "./emailService"
 import { MATCH_TEMPLATE } from "./templates"
+import UsersController from "../controllers/users.controller"
 
 type Pair = [User, User | null]
 
-function filterAvailableUsers(users: User[]): User[] {
+function filterAvailableUsers (users: User[]): User[] {
   return users.filter((user) => user.isAvailableToday)
 }
 
-function shuffleUsers(users: User[]): User[] {
+function shuffleUsers (users: User[]): User[] {
   let shuffled = [...users]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
   return shuffled
 }
 
-function createRandomUserPairs(users: User[]): Pair[] {
+function createRandomUserPairs (users: User[]): Pair[] {
   let availableUsers = filterAvailableUsers(users)
   let shuffledUsers = shuffleUsers(availableUsers)
   let userPairs: Pair[] = []
@@ -31,7 +32,7 @@ function createRandomUserPairs(users: User[]): Pair[] {
   return userPairs
 }
 
-function updateUsersWithPairInfo(pairs: Pair[]): Pair[] {
+function updateUsersWithPairInfo (pairs: Pair[]): Pair[] {
   // users: [w, x, y, z]
   // pairs: [[x, y], [w, z]]
   let currentDate = new Date().toISOString()
@@ -57,7 +58,7 @@ function updateUsersWithPairInfo(pairs: Pair[]): Pair[] {
   })
 }
 
-export default async function createMatches(users: User[]): Promise<User[]> {
+export default async function createMatches (users: User[]): Promise<User[]> {
   const arrayOfPairs = createRandomUserPairs(users)
   const pairs = updateUsersWithPairInfo(arrayOfPairs)
     .flat()
