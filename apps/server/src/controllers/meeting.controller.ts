@@ -1,6 +1,7 @@
 //create controller for all actions within meeting
 import { Request, Response } from "express"
 import db from "../db/firebase"
+import { sendEmail } from "../lib/email"
 
 // Hardcoded placeholders
 const LOCATION = "Honest Greens"
@@ -13,6 +14,7 @@ const meetingController = {
     if (!Array.isArray(users) || typeof time !== "string")
       return res.status(400)
   },
+
   async getMeeting(req: Request, res: Response) {
     const userId = req.params.id
 
