@@ -65,11 +65,12 @@ export default async function createMatches(users: User[]): Promise<User[]> {
 
   // TODO update users in db
 
-  await Promise.all(
-    pairs.map(async (user) => {
-      return await sendEmail(user.firstName, MATCH_TEMPLATE)
-    }),
-  )
+  // await Promise.all(
+  //   pairs.map(async (user) => {
+  //     return await sendEmail(user.email, MATCH_TEMPLATE)
+  //   }),
+  // )
+  //uncomment this when email property is added in users
 
   return users
 }
