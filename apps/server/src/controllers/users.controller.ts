@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import createMatches from "../matchingAlgorithm"
+import createMatches from "../lib/matchingAlgorithm"
 import UserModel, { User } from "../models/Users"
 
 const UsersController = {
@@ -19,6 +19,7 @@ const UsersController = {
         lastName: req.body.lastName,
       }
       const user = await UserModel.create(data)
+
       res.status(201).json(user)
     } catch (error) {
       res.status(400).json(error)
