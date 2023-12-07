@@ -76,6 +76,9 @@ const UsersController = {
     const users = await UserModel.findAll()
     const matchedUsers = await createMatches(users as User[])
 
+    const usersToUpdate = matchedUsers.filter((user) => user.matchId)
+    await UserModel.updateBatch(usersToUpdate)
+
     res.status(200).json(matchedUsers)
   },
 }
