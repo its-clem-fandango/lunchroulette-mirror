@@ -54,6 +54,17 @@ const UserModel = {
     return user
   },
 
+  async updateBatch(usersData: any[]) {
+    const batch = db.batch()
+
+    usersData.forEach((userData: any) => {
+      const docRef = usersRef.doc(userData.id)
+      batch.update(docRef, userData)
+    })
+
+    await batch.commit()
+  },
+
   //* ✋ ===== Only for Seeding ===== 🛑
   async createBatch(usersData: any[]) {
     const batch = db.batch()
