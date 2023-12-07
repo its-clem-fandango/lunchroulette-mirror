@@ -3,7 +3,7 @@ import createMatches from "../lib/matchingAlgorithm"
 import UserModel, { User } from "../models/Users"
 
 const UsersController = {
-  async getAllUsers (_: Request, res: Response) {
+  async getAllUsers(_: Request, res: Response) {
     try {
       const users = await UserModel.findAll()
       res.status(200).json(users)
@@ -12,7 +12,7 @@ const UsersController = {
     }
   },
 
-  async createUser (req: Request, res: Response) {
+  async createUser(req: Request, res: Response) {
     try {
       const data = {
         firstName: req.body.firstName,
@@ -26,7 +26,7 @@ const UsersController = {
     }
   },
 
-  async getUser (req: Request, res: Response) {
+  async getUser(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const user = UserModel.findById(userId)
@@ -36,7 +36,7 @@ const UsersController = {
     }
   },
 
-  async editUserProfile (req: Request, res: Response) {
+  async editUserProfile(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const data = {
@@ -51,9 +51,9 @@ const UsersController = {
     }
   },
 
-  async toggleIsAvailableToday (req: Request, res: Response) {
+  async toggleIsAvailableToday(req: Request, res: Response) {
     try {
-      console.log('triggered toggle method')
+      console.log("triggered toggle method")
       const userId = req.params.id
       const user = await UserModel.findById(userId)
 
@@ -71,9 +71,10 @@ const UsersController = {
     }
   },
 
-  async getMatches (_: Request, res: Response) {
+  async getMatches(_: Request, res: Response) {
     const users = await UserModel.findAll()
-    const matchedUsers = createMatches(users as User[])
+    const matchedUsers = await createMatches(users as User[])
+
     res.status(200).json(matchedUsers)
   },
 }

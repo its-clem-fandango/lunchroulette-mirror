@@ -72,5 +72,5 @@ export default async function createMatches(users: User[]): Promise<User[]> {
   // )
   //uncomment this when email property is added in users
 
-  return users
+  return pairs
 }
