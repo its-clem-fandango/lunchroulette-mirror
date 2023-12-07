@@ -4,10 +4,11 @@ import { Match } from "@/lib/types"
 import { useEffect, useState } from "react"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
 const TIME = "12:00 PM"
 const LOCATION = "Honest Greens"
-const loggedInUserID = "2633686d-492c-4eec-a79c-0ba5ce4b30fd"
+const loggedInUserID = "035d63cb-d0e0-429e-b548-96f7a4f023d2"
 
 export default function ViewMeeting() {
   /* I guess the controller should check whether or not 
@@ -59,13 +60,18 @@ export default function ViewMeeting() {
     getMatch()
   }, [])
 
+  const navigate = useNavigate()
+
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       {noMatch ? (
-        <Card className="w-[350px] shadow-green-600">
+        <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Sorry, we couldn't find a match for you today</CardTitle>
           </CardHeader>
+          <Button className="m-3" onClick={() => navigate(-1)}>
+            Go Back
+          </Button>
         </Card>
       ) : (
         <TodaysLunch matches={matches} time={TIME} location={LOCATION} />

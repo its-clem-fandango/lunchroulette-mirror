@@ -45,7 +45,7 @@ export default function Homepage() {
       <hr />
       <div className="text-center">
         <h1 className="text-2xl text-teal-800 m-5">Here's your next Meeting</h1>
-        <Link to="/meeting">
+        <Link to="/viewmeeting">
           <Button className="p-5 m-3">📅 View your meeting info</Button>
         </Link>
       </div>
