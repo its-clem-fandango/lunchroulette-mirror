@@ -29,7 +29,8 @@ const UsersController = {
   async getUser (req: Request, res: Response) {
     try {
       const userId = req.params.id
-      const user = UserModel.findById(userId)
+      // Fix
+      const user = await UserModel.findById(userId)
       res.status(200).json(user)
     } catch (error) {
       res.status(400).json(error)
@@ -74,7 +75,8 @@ const UsersController = {
   async getMatches (_: Request, res: Response) {
     const users = await UserModel.findAll()
     const matchedUsers = createMatches(users as User[])
-    res.status(200).json(matchedUsers)
+    const matchedUsersData = await matchedUsers
+    res.status(200).json(matchedUsersData)
   },
 }
 
