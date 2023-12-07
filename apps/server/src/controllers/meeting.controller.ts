@@ -1,10 +1,6 @@
 import { Request, Response } from "express"
-
 import db from "../db/firebase"
-import { sendEmail } from "../lib/email"
-
 import UserModel from "../models/Users"
-
 
 // Hardcoded placeholders
 const LOCATION = "Honest Greens"
