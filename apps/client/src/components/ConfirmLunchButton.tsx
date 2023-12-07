@@ -1,49 +1,57 @@
-import { Button } from './ui/button';
+import React, { useState, useEffect } from "react"
+import { Button } from "./ui/button"
+import { apiUrl } from "@/lib/constants"
 
-import React, { useState } from 'react';
+type ConfirmLunchButtonProps = {
+  currentUserId: string
+}
 
-const ConfirmLunchButton: React.FC = () => {
+const ConfirmLunchButton: React.FC<ConfirmLunchButtonProps> = ({
+  currentUserId,
+}) => {
+  const [signedUpForLunch, setSignedUpForLunch] = useState(false)
 
-        const today = new Date();
-        const dateString = today.toDateString(); // e.g., "Fri Dec 01 2023"
-        const [date, setDate] = useState(dateString);
+  useEffect(() => {
+    async function getLunchStatus() {
+      const response = await fetch(`${apiUrl}/users/${currentUserId}`)
+      const user = await response.json()
 
-        const firstName = "John"
-        const lastName = 'Doe'
+      if (user.isAvailableToday) {
+        setSignedUpForLunch(true)
+      }
+    }
+    getLunchStatus()
+  }, [])
 
-    // I also need to send the username 
-    // Each day, I need to create a function that sets the use state in a new date
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        console.log('Sending this date: ',{date, firstName, lastName})
-        console.log({today})
+    const response = await fetch(
+      `${apiUrl}/users/availableToday/${currentUserId}`,
+      { method: "PATCH" },
+    )
+    const updatedUser = await response.json()
 
-        try {
-            const response = await fetch('/api/save-data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ date }),
-            });
+    setSignedUpForLunch(updatedUser.isAvailableToday)
+  }
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
+  return (
+    <form onSubmit={handleSubmit}>
+      {signedUpForLunch ? <CancelButton /> : <SignUpButton />}
+    </form>
+  )
+}
 
-            const responseBody = await response.json();
-            console.log('Server response:', responseBody);
-        } catch (error) {
-            console.error('Failed to send date:', error);
-        }
-    };
+const SignUpButton: React.FC = () => {
+  return <Button type="submit">🥙 Confirm Lunch for Today</Button>
+}
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <Button type="submit">🥙 Confirm Lunch for Today</Button>
-        </form>
-    );
-};
+const CancelButton: React.FC = () => {
+  return (
+    <Button className="bg-red-600 hover:bg-red-700" type="submit">
+      ❌ Cancel Lunch for Today
+    </Button>
+  )
+}
 
-export default ConfirmLunchButton;
+export default ConfirmLunchButton
