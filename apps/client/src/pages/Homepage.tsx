@@ -7,7 +7,7 @@ export default function Homepage() {
 
   return (
     <>
-      <h1 className="text-2xl text-teal-800 text-center">Homepage</h1>
+      <h1 className="text-2xl m-3 text-teal-800 text-center">Homepage</h1>
       <div className="text-center">
         <Link to="/profile">
           <Button className="p-5 text-center m-3">⚙️ Edit Profile</Button>
@@ -17,16 +17,6 @@ export default function Homepage() {
       <div className="text-center">
         <h1 className="text-2xl text-teal-800 m-5">Join us for Lunch Today</h1>
         <ConfirmLunchButton currentUserId={loggedInUserID} />
-      </div>
-      <div className="text-center">
-        <h1 className="text-2xl text-teal-800 m-5">
-          Or Establish Recurring Preferences
-        </h1>
-        <Link to="/preferences">
-          <Button className="text-center m-3">
-            🕰️ Define Time Preferences
-          </Button>
-        </Link>
       </div>
       <hr />
       <div className="text-center">
