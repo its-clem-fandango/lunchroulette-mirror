@@ -75,9 +75,11 @@ const UsersController = {
   async getMatches(_: Request, res: Response) {
     const users = await UserModel.findAll()
     const matchedUsers = await createMatches(users as User[])
+    console.log("Inside getMatches function")
 
     const usersToUpdate = matchedUsers.filter((user) => user.matchId)
     await UserModel.updateBatch(usersToUpdate)
+    console.log("Inside getMatches function")
 
     res.status(200).json(matchedUsers)
   },
