@@ -11,7 +11,7 @@ import {
 import { DataTable } from "@/components/ui/data-table"
 import { Button } from "../components/ui/button"
 
-export default function ControlPanel() {
+export default function adminPanel() {
   const [data, setData] = useState([]) // Add state to store the fetched data
 
   async function getUsers() {

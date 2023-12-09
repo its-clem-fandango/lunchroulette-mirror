@@ -36,7 +36,7 @@ function App() {
         <Route path="/profile" element={<CreateProfile />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
-        <Route path="/controlpanel" element={<AdminPanel />}></Route>
+        <Route path="/devcontrolpanel" element={<AdminPanel />}></Route>
       </Routes>
     </Router>
   )
