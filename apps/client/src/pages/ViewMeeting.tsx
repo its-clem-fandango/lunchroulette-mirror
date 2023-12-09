@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 const TIME = "12:00 PM"
 const LOCATION = "Honest Greens"
-const loggedInUserID = "035d63cb-d0e0-429e-b548-96f7a4f023d2"
+const loggedInUserID = "03aa3fe4-5685-452b-abfe-b85c2ec9dc0a"
 
 export default function ViewMeeting() {
   /* I guess the controller should check whether or not 
@@ -45,8 +45,9 @@ export default function ViewMeeting() {
         } else {
           setMatches([
             {
+              id: data.match.id,
               name: `${data.match.firstName} ${data.match.lastName}`,
-              picUrl: "https://via.placeholder.com/40",
+              avatar: data.match.avatar,
             },
           ])
           // use data to set some state, which conditionally renders TodaysLunch

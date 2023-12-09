@@ -1,4 +1,5 @@
 export type Match = {
+  id: any
   name: string
-  picUrl: string
+  avatar: string
 }
