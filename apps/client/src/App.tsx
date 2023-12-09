@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import ControlPanel from "./ControlPanel"
+import ControlPanel from "./tools/ControlPanel"
 
 function App() {
   return (
