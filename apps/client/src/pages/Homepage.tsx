@@ -18,16 +18,6 @@ export default function Homepage() {
         <h1 className="text-2xl text-teal-800 m-5">Join us for Lunch Today</h1>
         <ConfirmLunchButton currentUserId={loggedInUserID} />
       </div>
-      <div className="text-center">
-        <h1 className="text-2xl text-teal-800 m-5">
-          Or Establish Recurring Preferences
-        </h1>
-        <Link to="/preferences">
-          <Button className="text-center m-3">
-            🕰️ Define Time Preferences
-          </Button>
-        </Link>
-      </div>
       <hr />
       <div className="text-center">
         <h1 className="text-2xl text-teal-800 m-5">Here's your next Meeting</h1>

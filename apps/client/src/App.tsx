@@ -2,10 +2,10 @@ import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
-import TimePreferences from "./pages/Timepreferences"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import TodaysLunch from "./components/TodaysLunch"
+import SignIn from "./pages/SignIn"
+import SignUp from "./pages/SignUp"
 
 function App() {
   return (
@@ -24,11 +24,6 @@ function App() {
             </Link>
           </li>
           <li className="p-8">
-            <Link className="text-2xl" to="/preferences">
-              Time Preferences
-            </Link>
-          </li>
-          <li className="p-8">
             <Link className="text-2xl" to="/viewmeeting">
               View Meeting
             </Link>
@@ -40,9 +35,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/profile" element={<CreateProfile />}></Route>
-        <Route path="/preferences" element={<TimePreferences />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
+        <Route path="/sign-in" element={<SignIn />}></Route>
+        <Route path="/sign-up" element={<SignUp />}></Route>
       </Routes>
     </Router>
   )
