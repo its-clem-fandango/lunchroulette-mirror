@@ -12,6 +12,7 @@ type TodaysLunchProps = {
 
 function TodaysLunch({ matches, time, location, className }: TodaysLunchProps) {
   // who, when, where
+  console.log(matches)
 
   return (
     <Card className={cn("w-[350px] mx-10 mb-5 shadow-green-600", className)}>
@@ -24,8 +25,8 @@ function TodaysLunch({ matches, time, location, className }: TodaysLunchProps) {
         <p className="text-center mb-3">
           {location} @ {time}
         </p>
-        {matches.map(({ name, picUrl }) => (
-          <UserMiniCard name={name} picUrl={picUrl} />
+        {matches.map(({ name, avatar }, id) => (
+          <UserMiniCard key={id} name={name} avatar={avatar} />
         ))}
       </CardContent>
     </Card>

@@ -6,12 +6,13 @@ import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
+import AdminPanel from "/Users/juneau/Documents/arol.dev/repos/Projects/lunch-roulette/apps/client/src/tools/AdminPanel.tsx"
 
 function App() {
   return (
     <Router>
       {/* NAVIGATION */}
-      <nav>
+      {/*     <nav>
         <ul className="flex">
           <li className="p-8">
             <Link className="text-2xl" to="/">
@@ -29,7 +30,7 @@ function App() {
             </Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       {/* ROUTES */}
       <Routes>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/devcontrolpanel" element={<AdminPanel />}></Route>
       </Routes>
     </Router>
   )

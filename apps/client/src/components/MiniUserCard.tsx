@@ -2,9 +2,11 @@ import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
 import { cn } from "@/lib/utils"
 
-type UserMiniCardProps = { name: string; picUrl: string; className?: string }
+type UserMiniCardProps = { name: string; avatar: string; className?: string }
 
-function UserMiniCard({ name, picUrl, className }: UserMiniCardProps) {
+function UserMiniCard({ name, avatar, className }: UserMiniCardProps) {
+  console.log(avatar)
+
   return (
     <div
       className={cn(
@@ -12,7 +14,7 @@ function UserMiniCard({ name, picUrl, className }: UserMiniCardProps) {
         className,
       )}
     >
-      <img src={picUrl} width={40} height={40} />
+      <img src={avatar} width={40} height={40} />
       <p>{name}</p>
       <Link to="/:id/profile/">
         <Button>Profile</Button>
