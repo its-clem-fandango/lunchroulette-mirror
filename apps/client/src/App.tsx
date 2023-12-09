@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import TodaysLunch from "./components/TodaysLunch"
+import ControlPanel from "./ControlPanel"
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
         <Route path="/profile" element={<CreateProfile />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
+        <Route path="/controlpanel" element={<ControlPanel />}></Route>
       </Routes>
     </Router>
   )
