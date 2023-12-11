@@ -1,5 +1,6 @@
 import * as cron from "node-cron"
 import axios from "axios"
+import UserModel from "../models/Users"
 
 export default function startRoulette() {
   cron.schedule("29 12 * * *", async () => {
@@ -12,7 +13,29 @@ export default function startRoulette() {
       console.error("Error in scheduler:", error)
     }
   })
-}
+  cron.schedule("1 0 * * *", async () => {
+    const users = await UserModel.findAll()
 
-//gets database matches every minute (app.ts), doesn't update database
-//localhost/matches updates and creates new matches on every refresh
+    try {
+      for (const user of users) {
+        if (user.isAvailableToday) {
+          user.isAvailableToday = false
+
+          console.log("Processing user with ID:", user.id)
+
+          const patchReq = await axios.patch(
+            `http://localhost:8080/users/availableToday/${user.id}`,
+            {
+              isAvailableToday: false,
+            },
+          )
+          console.log("patch request: ", patchReq.data)
+
+          console.log("availability has been reset")
+        }
+      }
+    } catch (error) {
+      console.error("Error in reset scheduler", error)
+    }
+  })
+}
