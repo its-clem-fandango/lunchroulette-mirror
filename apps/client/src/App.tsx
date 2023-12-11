@@ -6,7 +6,7 @@ import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
 import SignIn from "./pages/SignIn"
 import SignUp from "./pages/SignUp"
-import AdminPanel from "/Users/juneau/Documents/arol.dev/repos/Projects/lunch-roulette/apps/client/src/tools/AdminPanel.tsx"
+import AdminPanel from "./tools/AdminPanel"
 
 function App() {
   return (
