@@ -1,7 +1,4 @@
-import UserModel, { User } from "../models/Users"
-import { sendEmail } from "./emailService"
-import { MATCH_TEMPLATE } from "./templates"
-import UsersController from "../controllers/users.controller"
+import { User } from "../models/Users"
 
 type Pair = [User, User | null]
 
@@ -63,15 +60,6 @@ export default async function createMatches(users: User[]): Promise<User[]> {
   const pairs = updateUsersWithPairInfo(arrayOfPairs)
     .flat()
     .filter((a) => a !== null) as User[]
-
-  // TODO update users in db
-
-  // await Promise.all(
-  //   pairs.map(async (user) => {
-  //     return await sendEmail(user.email, MATCH_TEMPLATE)
-  //   }),
-  // )
-  //uncomment this when email property is added in users
 
   return pairs
 }

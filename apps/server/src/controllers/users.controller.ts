@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import createMatches from "../lib/matchingAlgorithm"
 import UserModel, { User } from "../models/Users"
+import { sendMatchEmail } from "../lib/emailService"
 
 const UsersController = {
   async getAllUsers(_: Request, res: Response) {
@@ -17,6 +18,7 @@ const UsersController = {
       const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        email: req.body.email,
       }
       const user = await UserModel.create(data)
 
@@ -75,6 +77,18 @@ const UsersController = {
   async getMatches(_: Request, res: Response) {
     const users = await UserModel.findAll()
     const matchedUsers = await createMatches(users as User[])
+    await Promise.all(
+      matchedUsers.map(async (user) => {
+        if (!user.matchId) throw new Error("Sorry, any match for today")
+        const match = await UserModel.findById(user.matchId)
+        return await sendMatchEmail(
+          user.email,
+          user.firstName,
+          match.firstName,
+          match.lastName,
+        )
+      }),
+    )
 
     const usersToUpdate = matchedUsers.filter((user) => user.matchId)
     await UserModel.updateBatch(usersToUpdate)

@@ -1,5 +1,6 @@
 import { CourierClient } from "@trycourier/courier"
 import dotenv from "dotenv"
+import { MATCH_TEMPLATE } from "./templates"
 
 dotenv.config()
 
@@ -12,14 +13,32 @@ const courier = new CourierClient({
 
 if (!process.env.TEMPLATE) throw new Error("fefw")
 
-export const sendEmail = async (email: string, template: string) => {
+export const sendMatchEmail = async (
+  email: string,
+  firstName: string,
+  matchFirstName: string,
+  matchLastName: string,
+) => {
+  const data = {
+    firstName,
+    matchFirstName,
+    matchLastName,
+  }
+
+  await sendEmail(email, MATCH_TEMPLATE, data)
+}
+
+const sendEmail = async (email: string, template: string, data: any) => {
   await courier.send({
     message: {
       to: {
-        email: email,
+        email,
       },
-      template: template,
-      data: {},
+      template,
+      data,
     },
   })
+  // const { requestId } = response
+  // const { status } = await courier.messages.get(requestId)
+  // console.log(status)
 }

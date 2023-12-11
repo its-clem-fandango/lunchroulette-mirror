@@ -5,6 +5,7 @@ export interface User {
   id: string
   firstName: string
   lastName: string
+  email: string
   lastMatched?: string | null
   isAvailableToday?: boolean
   matchId?: string | null
