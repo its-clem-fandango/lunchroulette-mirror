@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(router)
 
+//initializes the roulette scheduler to run at 12:29pm
 startRoulette()
 
 export function startServer(): Server {
