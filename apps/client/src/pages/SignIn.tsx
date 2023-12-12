@@ -1,76 +1,16 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import arrowRightIcon from "../assets/keyboardArrowRightIcon.svg"
-import visibilityIcon from "../assets/visibilityIcon.svg"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { auth } from "../../firebase/firebaseConfig"
+import { Button } from "@/components/ui/button"
+
+const handleGoogle = async (e: any) => {
+  const provider = await new GoogleAuthProvider()
+  return signInWithPopup(auth, provider)
+}
 
 function SignIn() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  })
-  const { email, password } = formData
-  const navigate = useNavigate()
-
-  const onChange = (e: any) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value,
-    }))
-  }
-
   return (
     <>
-      <div className="pageContainer">
-        <header>
-          <p className="pageHeader">Welcome Back!</p>
-        </header>
-
-        <form>
-          <input
-            type="email"
-            className="emailInput"
-            placeholder="Email"
-            id="email"
-            value={email}
-            onChange={onChange}
-          />
-          <div className="passwordInputDiv">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="passwordInput"
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={onChange}
-            />
-            <img
-              src={visibilityIcon}
-              alt="Show Password"
-              className="showPassword"
-              onClick={() => setShowPassword((prevState) => !prevState)}
-            />
-          </div>
-          <Link to="/forgot-password" className="forgotPasswordLink">
-            Forgot Password
-          </Link>
-          <div className="signInBar">
-            <p className="signInText">Sign In</p>
-            <button className="signInButton">
-              <img
-                src={arrowRightIcon}
-                alt="Sign In Button"
-                width="34"
-                height="34"
-              />
-            </button>
-          </div>
-        </form>
-        {/* Google OAuth */}
-        <Link to="/sign-up" className="registerLink">
-          Sign Up Instead
-        </Link>
-      </div>
+      <Button onClick={handleGoogle}>Sign In With Google</Button>
     </>
   )
 }
