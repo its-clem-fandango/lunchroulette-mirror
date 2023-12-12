@@ -1,9 +1,6 @@
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-} from "firebase/auth"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { doc, getDoc, setDoc } from "firebase/firestore"
+import { apiUrl } from "@/lib/constants"
 
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
@@ -13,6 +10,17 @@ const handleGoogle = async (e: any) => {
   const provider = await new GoogleAuthProvider()
   const response = await signInWithPopup(auth, provider)
   console.log("Login Object: ", response)
+  const uid = response.user.uid
+  const email = response.user.email
+  const displayName = response.user.displayName
+  const photoURL = response.user.photoURL
+
+  const requestOptions: RequestInit = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid, email, displayName, photoURL }),
+  }
+  fetch(`${apiUrl}/users`, requestOptions)
 }
 
 function SignIn() {

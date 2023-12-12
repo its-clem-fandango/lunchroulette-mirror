@@ -14,9 +14,15 @@ const UsersController = {
 
   async createUser(req: Request, res: Response) {
     try {
+      const displayName = req.body.displayName
+
+      const [firstName, lastName] = displayName.split(" ")
+
       const data = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        firstName,
+        lastName,
+        email: req.body.email,
+        photo: req.body.photoURL,
       }
       const uid = req.body.uid
 
