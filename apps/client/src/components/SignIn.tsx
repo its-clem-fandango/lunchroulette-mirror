@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth"
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
@@ -13,7 +17,7 @@ function SignIn() {
     <>
       <Button onClick={handleGoogle} className="bg-teal-900">
         <Mail className="mr-2 h-4 w-4" />
-        Sign In With Google
+        Login With Gmail
       </Button>
     </>
   )
