@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase-admin/app"
 import { getFirestore } from "firebase-admin/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
+
 import admin from "firebase-admin"
 import dotenv from "dotenv"
 
@@ -12,8 +14,8 @@ const serviceAccount = JSON.parse(
 const app = admin.apps.length
   ? admin.app()
   : admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  })
+      credential: admin.credential.cert(serviceAccount),
+    })
 
 const db = getFirestore(app)
 

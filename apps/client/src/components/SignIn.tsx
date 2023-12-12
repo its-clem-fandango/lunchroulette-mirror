@@ -3,13 +3,16 @@ import {
   signInWithPopup,
   signInWithRedirect,
 } from "firebase/auth"
+import { doc, getDoc, setDoc } from "firebase/firestore"
+
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
 
 const handleGoogle = async (e: any) => {
   const provider = await new GoogleAuthProvider()
-  return signInWithPopup(auth, provider)
+  const response = await signInWithPopup(auth, provider)
+  console.log("Login Object: ", response)
 }
 
 function SignIn() {

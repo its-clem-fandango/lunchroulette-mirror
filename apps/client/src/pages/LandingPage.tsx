@@ -1,7 +1,3 @@
-import ConfirmLunchButton from "@/components/ConfirmLunchButton"
-import { Button } from "../components/ui/button"
-import { Link } from "react-router-dom"
-import { Mail } from "lucide-react"
 import rouletteimage from "../assets/roulette-logo.svg"
 import SignIn from "@/components/SignIn"
 
