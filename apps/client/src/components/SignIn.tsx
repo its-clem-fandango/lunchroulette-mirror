@@ -1,6 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
+import { Mail } from "lucide-react"
 
 const handleGoogle = async (e: any) => {
   const provider = await new GoogleAuthProvider()
@@ -10,7 +11,10 @@ const handleGoogle = async (e: any) => {
 function SignIn() {
   return (
     <>
-      <Button onClick={handleGoogle}>Sign In With Google</Button>
+      <Button>
+        <Mail className="mr-2 h-4 w-4" onClick={handleGoogle} />
+        Sign In With Google
+      </Button>
     </>
   )
 }

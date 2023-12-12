@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Homepage from "./pages/Homepage"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import SignIn from "./pages/SignIn"
+import SignIn from "./components/SignIn"
 import AdminPanel from "./tools/AdminPanel"
 
 function App() {
@@ -37,7 +37,6 @@ function App() {
         <Route path="/profile" element={<CreateProfile />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
-        <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/devcontrolpanel" element={<AdminPanel />}></Route>
       </Routes>
     </Router>
