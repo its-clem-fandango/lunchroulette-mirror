@@ -11,8 +11,8 @@ const handleGoogle = async (e: any) => {
 function SignIn() {
   return (
     <>
-      <Button>
-        <Mail className="mr-2 h-4 w-4" onClick={handleGoogle} />
+      <Button onClick={handleGoogle} className="bg-teal-900">
+        <Mail className="mr-2 h-4 w-4" />
         Sign In With Google
       </Button>
     </>
