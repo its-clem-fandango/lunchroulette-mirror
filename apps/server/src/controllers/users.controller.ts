@@ -18,7 +18,9 @@ const UsersController = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
       }
-      const user = await UserModel.create(data)
+      const uid = req.body.uid
+
+      const user = await UserModel.create(uid, data)
 
       res.status(201).json(user)
     } catch (error) {
