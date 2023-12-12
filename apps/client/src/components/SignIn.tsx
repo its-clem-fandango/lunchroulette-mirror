@@ -17,7 +17,7 @@ function SignIn() {
     <>
       <Button onClick={handleGoogle} className="bg-teal-900">
         <Mail className="mr-2 h-4 w-4" />
-        Login With Gmail
+        Sign in with Google
       </Button>
     </>
   )

@@ -1,11 +1,10 @@
 import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { Link } from "react-router-dom"
-import Homepage from "./pages/Homepage"
+import LandingPage from "./pages/LandingPage"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import SignIn from "./components/SignIn"
 import AdminPanel from "./tools/AdminPanel"
+import Homepage from "./pages/Homepage"
 
 function App() {
   return (
@@ -33,7 +32,8 @@ function App() {
 
       {/* ROUTES */}
       <Routes>
-        <Route path="/" element={<Homepage />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/home" element={<Homepage />}></Route>
         <Route path="/profile" element={<CreateProfile />}></Route>
         <Route path="/lunch" element={<LunchConfirmation />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
