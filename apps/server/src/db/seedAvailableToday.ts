@@ -8,7 +8,7 @@ export async function seed(n: number) {
   const usersTemplate = new Array(n).fill("")
 
   const users = usersTemplate.map(() => ({
-    email: "albert.se.work@gmail.com",
+    email: "",
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     isAvailableToday: true,
