@@ -1,16 +1,23 @@
 import CreateProfile from "./pages/CreateProfile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { Link } from "react-router-dom"
-import Homepage from "./pages/Homepage"
+import LandingPage from "./pages/LandingPage"
 import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
-import TodaysLunch from "./components/TodaysLunch"
+import AdminPanel from "./tools/AdminPanel"
+import { UserContext, UserData } from "./lib/UserContext"
+import { useState } from "react"
+import SignIn from "./pages/SignIn"
+import SignUp from "./pages/SignUp"
+import AdminPanel from "./tools/AdminPanel"
 
 function App() {
+  const userState = useState<UserData | null>(null)
+
   return (
-    <Router>
-      {/* NAVIGATION */}
-      {/*     <nav>
+    <UserContext.Provider value={userState}>
+      <Router>
+        {/* NAVIGATION */}
+        {/*     <nav>
         <ul className="flex">
           <li className="p-8">
             <Link className="text-2xl" to="/">
@@ -30,14 +37,16 @@ function App() {
         </ul>
       </nav> */}
 
-      {/* ROUTES */}
-      <Routes>
-        <Route path="/" element={<Homepage />}></Route>
-        <Route path="/profile" element={<CreateProfile />}></Route>
-        <Route path="/lunch" element={<LunchConfirmation />}></Route>
-        <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
-      </Routes>
-    </Router>
+        {/* ROUTES */}
+        <Routes>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/profile" element={<CreateProfile />}></Route>
+          <Route path="/lunch" element={<LunchConfirmation />}></Route>
+          <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
+          <Route path="/devcontrolpanel" element={<AdminPanel />}></Route>
+        </Routes>
+      </Router>
+    </UserContext.Provider>
   )
 }
 

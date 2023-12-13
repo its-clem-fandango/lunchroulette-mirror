@@ -1,0 +1,16 @@
+import { createContext, useContext } from "react"
+
+export interface UserData {
+  id: string
+  firstName: string
+  lastName: string
+  getToken: (forceRefresh?: boolean | undefined) => Promise<string>
+}
+
+export const UserContext = createContext<
+  [UserData | null, React.Dispatch<React.SetStateAction<UserData | null>>]
+>([null, () => {}])
+
+export const useUserContext = () => {
+  return useContext(UserContext)
+}

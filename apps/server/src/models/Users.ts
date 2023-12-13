@@ -5,6 +5,7 @@ export interface User {
   id: string
   firstName: string
   lastName: string
+  email: string
   lastMatched?: string | null
   isAvailableToday?: boolean
   matchId?: string | null
@@ -37,10 +38,11 @@ const UserModel = {
 
   //* This accepts _any_ properties! We may want to create a
   //* 'UserInput' type to help standardize the input
-  async create(data: any) {
-    const id = uuid()
-    await usersRef.doc(id).create(data)
-    const newUser = await this.findById(id)
+
+  async create(uid: string, data = {}) {
+    //const id = uuid()
+    await usersRef.doc(uid).create(data)
+    const newUser = await this.findById(uid)
     return newUser
   },
 

@@ -28,7 +28,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { apiUrl } from "@/lib/constants"
-import React, { useState } from "react"
+import { useContext } from "react"
+import { UserContext, useUserContext } from "@/lib/UserContext"
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -38,17 +39,21 @@ const formSchema = z.object({
     .any()
     .refine((files) => files.length >= 1, "Image is required.")
     .refine((files) => files[0].size <= 5000000, "Max file size is 5MB."),
+  companyName: z.string().min(2).max(50),
 })
 
 export default function CreateProfile() {
+  const [user, setUser] = useUserContext()
+
   //define form
   const form = useForm<z.infer<typeof formSchema>>({
     //specify input validator for reacthookform
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      avatar: undefined,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      //avatar: undefined,
+      companyName: "",
     },
   })
 
@@ -58,7 +63,7 @@ export default function CreateProfile() {
     ? URL.createObjectURL(fileList[0])
     : undefined
 
-  function onSubmit(values: z.infer<typeof formSchema>, e) {
+  function onSubmit(values: z.infer<typeof formSchema>, e: React.FormEvent) {
     console.log("clicked")
     e.preventDefault()
 
