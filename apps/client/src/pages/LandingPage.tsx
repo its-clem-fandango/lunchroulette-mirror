@@ -1,11 +1,22 @@
-import ConfirmLunchButton from "@/components/ConfirmLunchButton"
-import { Button } from "../components/ui/button"
-import { Link } from "react-router-dom"
-import { Mail } from "lucide-react"
+import { UserContext, UserData, useUserContext } from "@/lib/UserContext"
 import rouletteimage from "../assets/roulette-logo.svg"
 import SignIn from "@/components/SignIn"
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+
+// Refactor so we don't repeat (this goes in the context?)
 
 export default function LandingPage() {
+  const [_, setUser] = useUserContext()
+  const navigate = useNavigate()
+
+  function handleSignIn(newUser: UserData) {
+    // Store in the context
+    setUser(newUser)
+    // Navigate  (programatically)
+    navigate("/profile")
+  }
+
   return (
     <div className="items-stretch flex flex-col py-12">
       <img
@@ -17,7 +28,7 @@ export default function LandingPage() {
         each other.
       </header>
       <div className="items-center flex w-full flex-col justify-center mt-16 mb-40 px-16">
-        <SignIn />
+        <SignIn onSignIn={handleSignIn} />
       </div>
     </div>
   )
