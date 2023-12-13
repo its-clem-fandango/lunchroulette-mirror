@@ -17,6 +17,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        myColor: "#10484E",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,4 +74,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+}
