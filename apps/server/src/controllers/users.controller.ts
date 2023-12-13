@@ -13,6 +13,7 @@ const UsersController = {
   },
 
   async createUser(req: Request, res: Response) {
+    console.log("Request", req.body)
     try {
       const data = {
         firstName: req.body.firstName,

@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase-admin/app"
 import { getFirestore } from "firebase-admin/firestore"
+import { getStorage } from "firebase-admin/storage"
 import admin from "firebase-admin"
 import dotenv from "dotenv"
 
@@ -16,5 +17,6 @@ const app = admin.apps.length
     })
 
 const db = getFirestore(app)
+export const storage = getStorage(app)
 
 export default db
