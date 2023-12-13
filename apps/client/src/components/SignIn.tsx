@@ -5,25 +5,56 @@ import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
 
-const handleGoogle = async (e: any) => {
-  const provider = await new GoogleAuthProvider()
-  const response = await signInWithPopup(auth, provider)
-  console.log("Login Object: ", response)
-
-  const uid = response.user.uid
-  const email = response.user.email
-  const displayName = response.user.displayName
-  const photoURL = response.user.photoURL
-
-  const requestOptions: RequestInit = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uid, email, displayName, photoURL }),
-  }
-  fetch(`${apiUrl}/users`, requestOptions)
+interface UserData {
+  id: string
+  firstName: string
+  lastName: string
+  getToken: (forceRefresh?: boolean | undefined) => Promise<string>
 }
 
-function SignIn() {
+interface SignInProps {
+  onSignIn: (userData: UserData) => void
+}
+
+function SignIn({ onSignIn }: SignInProps) {
+  const handleGoogle = async () => {
+    /**
+     * Can be extracted
+     */
+    const provider = await new GoogleAuthProvider()
+    const response = await signInWithPopup(auth, provider)
+    console.log("Login Object: ", response)
+
+    const { uid, email, displayName, photoURL } = response.user
+
+    // Should this call be authenticated?
+    const requestOptions: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${await response.user.getIdToken()}`,
+      },
+      body: JSON.stringify({ uid, email, displayName, photoURL }),
+    }
+    let responseCreateUser = await fetch(`${apiUrl}/users`, requestOptions)
+    let newUser
+    if (!responseCreateUser.ok) {
+      const responseUsers = await fetch(`${apiUrl}/users`)
+      if (!responseUsers.ok) throw new Error("oops")
+
+      const users = await responseUsers.json()
+      newUser = users.find((u: any) => u.email === email)
+    } else {
+      newUser = await responseCreateUser.json()
+    }
+    /**  */
+
+    onSignIn({
+      ...newUser,
+      getToken: response.user.getIdToken,
+    })
+  }
+
   return (
     <>
       <Button onClick={handleGoogle} className="bg-teal-900">
