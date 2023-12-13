@@ -28,6 +28,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { apiUrl } from "@/lib/constants"
+import { useContext } from "react"
+import { UserContext, useUserContext } from "@/lib/UserContext"
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -52,13 +54,15 @@ const formSchema = z.object({
 })
 
 export default function CreateProfile() {
+  const [user, setUser] = useUserContext()
+
   //define form
   const form = useForm<z.infer<typeof formSchema>>({
     //specify input validator for reacthookform
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      firstName: user?.firstName,
+      lastName: user?.lastName,
       //************FILE UPLOAD**************** */
       //avatar: undefined,
       companyName: "",

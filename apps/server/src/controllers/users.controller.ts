@@ -15,12 +15,19 @@ const UsersController = {
 
   async createUser(req: Request, res: Response) {
     try {
+      const displayName = req.body.displayName
+
+      const [firstName, lastName] = displayName.split(" ")
+
       const data = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+        firstName,
+        lastName,
         email: req.body.email,
+        photo: req.body.photoURL,
       }
-      const user = await UserModel.create(data)
+      const uid = req.body.uid
+
+      const user = await UserModel.create(uid, data)
 
       res.status(201).json(user)
     } catch (error) {
@@ -85,13 +92,14 @@ const UsersController = {
           user.email,
           user.firstName,
           match.firstName,
-          match.lastName,
+          match.lastName
         )
-      }),
+      })
     )
 
     const usersToUpdate = matchedUsers.filter((user) => user.matchId)
     await UserModel.updateBatch(usersToUpdate)
+    console.log("Inside getMatches function")
 
     res.status(200).json(matchedUsers)
   },
