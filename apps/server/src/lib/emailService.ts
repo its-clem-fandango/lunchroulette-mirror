@@ -38,7 +38,4 @@ const sendEmail = async (email: string, template: string, data: any) => {
       data,
     },
   })
-  // const { requestId } = response
-  // const { status } = await courier.messages.get(requestId)
-  // console.log(status)
 }
