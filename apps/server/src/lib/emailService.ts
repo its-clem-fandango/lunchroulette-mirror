@@ -3,21 +3,21 @@ import dotenv from "dotenv"
 import { MATCH_TEMPLATE } from "./templates"
 
 dotenv.config()
-
+/* 
 if (!process.env.COURIER_PROD_API_KEY)
   throw new Error("missing Courier api key")
-
+ */
 const courier = new CourierClient({
   authorizationToken: process.env.COURIER_PROD_API_KEY,
 })
-
+/* 
 if (!process.env.TEMPLATE) throw new Error("fefw")
-
+ */
 export const sendMatchEmail = async (
   email: string,
   firstName: string,
   matchFirstName: string,
-  matchLastName: string,
+  matchLastName: string
 ) => {
   const data = {
     firstName,
