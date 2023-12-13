@@ -14,12 +14,14 @@ export default function Homepage() {
   function handleSpin() {
     setLoading(true)
     //TODO: fetch post join the pool
-    setTimeout(() => {
+    setTimeout(async () => {
+      //do fetch here
       navigate("/viewmeeting")
     }, 1000)
   }
 
   function handleTime() {
+    //make dynamic
     return "2:45"
   }
   return (
