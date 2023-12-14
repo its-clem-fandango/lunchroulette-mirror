@@ -1,46 +1,24 @@
 import rouletteimage from "../assets/roulette-logo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
+import CountdownTimer from "@/components/CountdownTimer/CountdownTimer"
 import { Loader2 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function Homepage() {
   const [loading, setLoading] = useState(false)
-
-  const [countdownDate, setCountdownDate] = useState(
-    new Date().setHours(11, 0, 0, 0)
-  )
-  const [timeNow, setTimeNow] = useState(new Date().getTime())
-  const [distance, setDistance] = useState(countdownDate - timeNow)
-  const [hours, setHours] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
-
-  setInterval(() => {
-    setTimeNow(new Date().getTime())
-    if (countdownDate - timeNow < 0) {
-      setCountdownDate(new Date().setHours(11, 0, 0, 0) + 86400000)
-    }
-    setDistance(countdownDate - new Date().getTime())
-    setHours(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-    setMinutes(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)))
-    setSeconds(Math.floor((distance % (1000 * 60)) / 1000))
-  }, 1000)
+  const [lunchTime, setLunchTime] = useState(new Date().setHours(13, 0, 0, 0))
 
   const navigate = useNavigate()
 
   function handleSpin() {
     setLoading(true)
-    const randomNumber = Math.floor(Math.random() * 5 * 6000)
-    console.log(randomNumber)
     //TODO: fetch post join the pool
     setTimeout(async () => {
       //do fetch here
-      setLoading(false)
       navigate("/viewmeeting")
-    }, randomNumber)
+    }, 1000)
   }
 
   return (
@@ -63,9 +41,7 @@ export default function Homepage() {
           <div className="text-myColor text-center">
             <span>Next lunch in </span>
             <span className="font-semibold">
-              {hours.toString().padStart(2, "0")}:
-              {minutes.toString().padStart(2, "0")}:
-              {seconds.toString().padStart(2, "0")}
+              <CountdownTimer countdownTimestampMs={lunchTime} />
             </span>
           </div>
         </main>
