@@ -1,6 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { apiUrl } from "@/lib/constants"
-
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
@@ -34,10 +33,14 @@ function SignIn({ onSignIn }: SignInProps) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${await response.user.getIdToken()}`,
       },
-      body: JSON.stringify({ uid, email, displayName, photoURL }),
+      body: JSON.stringify({ uid, email, displayName, avatar: photoURL }),
     }
-    let responseCreateUser = await fetch(`${apiUrl}/users`, requestOptions)
+
+    const responseCreateUser = await fetch(`${apiUrl}/users`, requestOptions)
+
     let newUser
+    console.log("responseCreateUser", responseCreateUser.status)
+    console.log("response", responseCreateUser)
     if (!responseCreateUser.ok) {
       const responseUsers = await fetch(`${apiUrl}/users`)
       if (!responseUsers.ok) throw new Error("oops")

@@ -28,12 +28,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { apiUrl } from "@/lib/constants"
-import { useContext } from "react"
 import { UserContext, useUserContext } from "@/lib/UserContext"
 
 const formSchema = z.object({
-  firstName: z.string().min(2).max(50),
-  lastName: z.string().min(2).max(50),
+  firstName: z.string().min(2).max(50).default(""),
+  lastName: z.string().min(2).max(50).default(""),
   //image thread: https://github.com/colinhacks/zod/issues/387
   avatar: z
     .any()
@@ -52,7 +51,7 @@ export default function CreateProfile() {
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
-      //avatar: undefined,
+      avatar: [],
       companyName: "",
     },
   })
@@ -65,6 +64,7 @@ export default function CreateProfile() {
 
   function onSubmit(values: z.infer<typeof formSchema>, e: React.FormEvent) {
     console.log("clicked")
+    console.log(user)
     e.preventDefault()
 
     const requestOptions: RequestInit = {
@@ -79,7 +79,7 @@ export default function CreateProfile() {
           throw new Error("Network response was not ok")
         }
         // Convert the response to JSON
-        return response.json()
+        const newUser = response.json()
       })
       .then((data) => {
         // Handle the data (JSON)

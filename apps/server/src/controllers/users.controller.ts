@@ -24,7 +24,7 @@ const UsersController = {
         firstName,
         lastName,
         email: req.body.email,
-        photo: req.body.photoURL,
+        photo: req.body.avatar,
       }
       const uid = req.body.uid
 
@@ -32,6 +32,7 @@ const UsersController = {
 
       res.status(201).json(user)
     } catch (error) {
+      console.log("error", error)
       res.status(400).json(error)
     }
   },
