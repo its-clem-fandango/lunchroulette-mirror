@@ -1,13 +1,14 @@
 import rouletteimage from "../assets/roulette-logo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
+import CountdownTimer from "@/components/CountdownTimer/CountdownTimer"
 import { Loader2 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function Homepage() {
   const [loading, setLoading] = useState(false)
+  const [lunchTime, setLunchTime] = useState(new Date().setHours(13, 0, 0, 0))
 
   const navigate = useNavigate()
 
@@ -20,10 +21,6 @@ export default function Homepage() {
     }, 1000)
   }
 
-  function handleTime() {
-    //make dynamic
-    return "2:45"
-  }
   return (
     <>
       <div className="flex flex-col items-center max-w-[480px] w-full mx-auto pt-12">
@@ -34,7 +31,7 @@ export default function Homepage() {
         />
 
         <header className="text-myColor font-semibold text-center text-xl mt-20 ">
-          You're not in the pool.
+          {loading ? `You're in the pool!` : `You're not in the pool`}
         </header>
 
         <main className="flex flex-col mt-20 px-8">
@@ -42,8 +39,10 @@ export default function Homepage() {
             Spin the Wheel to enter the pool
           </header>
           <div className="text-myColor text-center">
-            <span> Next lunch in </span>
-            <span className="font-semibold">{handleTime()}</span>
+            <span>Next lunch in </span>
+            <span className="font-semibold">
+              <CountdownTimer countdownTimestampMs={lunchTime} />
+            </span>
           </div>
         </main>
 
