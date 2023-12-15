@@ -2,9 +2,10 @@ import { Request, Response } from "express"
 import createMatches from "../lib/matchingAlgorithm"
 import UserModel, { User } from "../models/Users"
 import { sendMatchEmail } from "../lib/emailService"
+import { fa } from "@faker-js/faker"
 
 const UsersController = {
-  async getAllUsers(_: Request, res: Response) {
+  async getAllUsers (_: Request, res: Response) {
     try {
       const users = await UserModel.findAll()
       res.status(200).json(users)
@@ -13,7 +14,7 @@ const UsersController = {
     }
   },
 
-  async createUser(req: Request, res: Response) {
+  async createUser (req: Request, res: Response) {
     console.log("Request", req.body)
     try {
       const displayName = req.body.displayName
@@ -25,6 +26,7 @@ const UsersController = {
         lastName,
         email: req.body.email,
         avatar: req.body.avatar,
+        isAvailableToday: false,
       }
       const uid = req.body.uid
 
@@ -37,7 +39,7 @@ const UsersController = {
     }
   },
 
-  async getUser(req: Request, res: Response) {
+  async getUser (req: Request, res: Response) {
     try {
       const userId = req.params.id
       // Fix
@@ -48,7 +50,7 @@ const UsersController = {
     }
   },
 
-  async editUserProfile(req: Request, res: Response) {
+  async editUserProfile (req: Request, res: Response) {
     try {
       const userId = req.params.id
       const data = {
@@ -63,7 +65,7 @@ const UsersController = {
     }
   },
 
-  async toggleIsAvailableToday(req: Request, res: Response) {
+  async toggleIsAvailableToday (req: Request, res: Response) {
     try {
       console.log("triggered toggle method")
       const userId = req.params.id
@@ -83,7 +85,7 @@ const UsersController = {
     }
   },
 
-  async getMatches(_: Request, res: Response) {
+  async getMatches (_: Request, res: Response) {
     const users = await UserModel.findAll()
     const matchedUsers = await createMatches(users as User[])
     await Promise.all(

@@ -1,22 +1,33 @@
 import rouletteimage from "../assets/roulette-logo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
 import CountdownTimer from "@/components/CountdownTimer/CountdownTimer"
+import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { UserContext, useUserContext } from "@/lib/UserContext"
+import { apiUrl } from "@/lib/constants"
 
 export default function Homepage() {
   const [loading, setLoading] = useState(false)
   const [lunchTime, setLunchTime] = useState(new Date().setHours(13, 0, 0, 0))
+  const [userState, setUserState] = useUserContext()
 
   const navigate = useNavigate()
 
   function handleSpin() {
     setLoading(true)
-    //TODO: fetch post join the pool
     setTimeout(async () => {
-      //do fetch here
+      try {
+        if (userState) {
+          axios.patch(`${apiUrl}/users/availableToday/${userState.id}`, {
+            isAvailableToday: true,
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
       navigate("/viewmeeting")
     }, 1000)
   }

@@ -5,16 +5,26 @@ import LunchConfirmation from "./pages/LunchTodayConfirmation"
 import ViewMeeting from "./pages/ViewMeeting"
 import AdminPanel from "./tools/AdminPanel"
 import { UserContext, UserData } from "./lib/UserContext"
-import { useState } from "react"
+import { useState, SetStateAction } from "react"
 // import SignIn from "./pages/SignIn"
 // import SignUp from "./pages/SignUp"
 import Homepage from "./pages/Homepage"
 
 function App() {
-  const userState = useState<UserData | null>(null)
+  const data = localStorage.getItem("LRUser")
+  let defaultUserState = null
+  if (data !== null) {
+    defaultUserState = JSON.parse(data)
+  }
+  const [user, setUser] = useState<UserData | null>(defaultUserState)
+
+  function setUserWithLocalStorage(userData: SetStateAction<UserData | null>) {
+    localStorage.setItem("LRUser", JSON.stringify(userData))
+    setUser(userData)
+  }
 
   return (
-    <UserContext.Provider value={userState}>
+    <UserContext.Provider value={[user, setUserWithLocalStorage]}>
       <Router>
         {/* NAVIGATION */}
         {/*     <nav>
