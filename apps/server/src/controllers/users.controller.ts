@@ -14,6 +14,7 @@ const UsersController = {
   },
 
   async createUser(req: Request, res: Response) {
+    console.log("Request", req.body)
     try {
       const displayName = req.body.displayName
 
@@ -23,7 +24,7 @@ const UsersController = {
         firstName,
         lastName,
         email: req.body.email,
-        photo: req.body.photoURL,
+        avatar: req.body.avatar,
       }
       const uid = req.body.uid
 
@@ -31,6 +32,7 @@ const UsersController = {
 
       res.status(201).json(user)
     } catch (error) {
+      console.log("error", error)
       res.status(400).json(error)
     }
   },

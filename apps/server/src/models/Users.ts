@@ -9,6 +9,7 @@ export interface User {
   lastMatched?: string | null
   isAvailableToday?: boolean
   matchId?: string | null
+  avatar?: string | null
 }
 
 const usersRef = db.collection("users")
@@ -40,6 +41,7 @@ const UserModel = {
   //* 'UserInput' type to help standardize the input
 
   async create(uid: string, data = {}) {
+    console.log("data", data)
     //const id = uuid()
     await usersRef.doc(uid).create(data)
     const newUser = await this.findById(uid)

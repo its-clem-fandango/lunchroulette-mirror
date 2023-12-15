@@ -10,9 +10,9 @@ if (!process.env.COURIER_PROD_API_KEY)
 const courier = new CourierClient({
   authorizationToken: process.env.COURIER_PROD_API_KEY,
 })
-/* 
+
 if (!process.env.TEMPLATE) throw new Error("fefw")
- */
+
 export const sendMatchEmail = async (
   email: string,
   firstName: string,

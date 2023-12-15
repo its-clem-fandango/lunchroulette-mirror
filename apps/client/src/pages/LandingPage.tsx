@@ -1,7 +1,6 @@
-import { UserContext, UserData, useUserContext } from "@/lib/UserContext"
+import { UserData, useUserContext } from "@/lib/UserContext"
 import rouletteimage from "../assets/roulette-logo.svg"
 import SignIn from "@/components/SignIn"
-import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 // Refactor so we don't repeat (this goes in the context?)
