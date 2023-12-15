@@ -20,12 +20,22 @@ export default function Homepage() {
     setTimeout(async () => {
       try {
         if (userState) {
-          fetch(`${apiUrl}/users/availableToday/${userState.id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-              isAvailableToday: true,
-            }),
-          })
+          const response = await fetch(
+            `${apiUrl}/users/availableToday/${userState.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                isAvailableToday: true,
+              }),
+            }
+          )
+
+          if (!response.ok) {
+            throw new Error(`Request failed, Status: ${response.status}`)
+          }
         }
       } catch (error) {
         console.log(error)
