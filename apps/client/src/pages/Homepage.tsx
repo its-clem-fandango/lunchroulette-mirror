@@ -7,13 +7,12 @@ import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext, useUserContext } from "@/lib/UserContext"
+import { apiUrl } from "@/lib/constants"
 
 export default function Homepage() {
   const [loading, setLoading] = useState(false)
   const [lunchTime, setLunchTime] = useState(new Date().setHours(13, 0, 0, 0))
-
   const [userState, setUserState] = useUserContext()
-  console.log(`user: ${userState}`)
 
   const navigate = useNavigate()
 
@@ -22,7 +21,7 @@ export default function Homepage() {
     setTimeout(async () => {
       try {
         if (userState) {
-          axios.patch(`/users/availableToday/${userState.id}`, {
+          axios.patch(`${apiUrl}/users/availableToday/${userState.id}`, {
             isAvailableToday: true,
           })
         }
