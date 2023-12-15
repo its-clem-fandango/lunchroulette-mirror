@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 const TIME = "12:00 PM"
 const LOCATION = "Honest Greens"
-const loggedInUserID = "03aa3fe4-5685-452b-abfe-b85c2ec9dc0a"
+const loggedInUserID = "095dcd2d-61b9-4538-afdc-01513dc2df5a"
 
 export default function ViewMeeting() {
   /* I guess the controller should check whether or not 
