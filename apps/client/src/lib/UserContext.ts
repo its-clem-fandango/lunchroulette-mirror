@@ -5,12 +5,13 @@ export interface UserData {
   firstName: string
   lastName: string
   avatar: string
+  isAvailableToday: boolean
   getToken: (forceRefresh?: boolean | undefined) => Promise<string>
 }
 
 export const UserContext = createContext<
   [UserData | null, React.Dispatch<React.SetStateAction<UserData | null>>]
->([null, () => {}])
+>([null, () => { }])
 
 export const useUserContext = () => {
   return useContext(UserContext)

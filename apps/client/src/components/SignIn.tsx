@@ -3,6 +3,7 @@ import { apiUrl } from "@/lib/constants"
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
+import { boolean } from "zod"
 
 interface UserData {
   id: string
@@ -33,7 +34,12 @@ function SignIn({ onSignIn }: SignInProps) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${await response.user.getIdToken()}`,
       },
-      body: JSON.stringify({ uid, email, displayName, avatar: photoURL }),
+      body: JSON.stringify({
+        uid,
+        email,
+        displayName,
+        avatar: photoURL,
+      }),
     }
 
     const responseCreateUser = await fetch(`${apiUrl}/users`, requestOptions)
