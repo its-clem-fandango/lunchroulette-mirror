@@ -1,12 +1,11 @@
 import rouletteimage from "../assets/roulette-logo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
 import CountdownTimer from "@/components/CountdownTimer/CountdownTimer"
-import axios from "axios"
 import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { UserContext, useUserContext } from "@/lib/UserContext"
+import { useUserContext } from "@/lib/UserContext"
 import { apiUrl } from "@/lib/constants"
 
 export default function Homepage() {
@@ -21,8 +20,11 @@ export default function Homepage() {
     setTimeout(async () => {
       try {
         if (userState) {
-          axios.patch(`${apiUrl}/users/availableToday/${userState.id}`, {
-            isAvailableToday: true,
+          fetch(`${apiUrl}/users/availableToday/${userState.id}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+              isAvailableToday: true,
+            }),
           })
         }
       } catch (error) {
