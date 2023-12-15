@@ -9,6 +9,7 @@ export interface User {
   lastMatched?: string | null
   isAvailableToday?: boolean
   matchId?: string | null
+  avatar?: string | null
 }
 
 const usersRef = db.collection("users")

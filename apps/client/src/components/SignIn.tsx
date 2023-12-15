@@ -22,7 +22,7 @@ function SignIn({ onSignIn }: SignInProps) {
      */
     const provider = await new GoogleAuthProvider()
     const response = await signInWithPopup(auth, provider)
-    console.log("Login Object: ", response)
+    console.log("Response form Google Sign IN: ", response)
 
     const { uid, email, displayName, photoURL } = response.user
 
@@ -41,6 +41,7 @@ function SignIn({ onSignIn }: SignInProps) {
     let newUser
     console.log("responseCreateUser", responseCreateUser.status)
     console.log("response", responseCreateUser)
+
     if (!responseCreateUser.ok) {
       const responseUsers = await fetch(`${apiUrl}/users`)
       if (!responseUsers.ok) throw new Error("oops")
@@ -51,6 +52,7 @@ function SignIn({ onSignIn }: SignInProps) {
       newUser = await responseCreateUser.json()
     }
     /**  */
+    console.log("newUser", newUser)
 
     onSignIn({
       ...newUser,

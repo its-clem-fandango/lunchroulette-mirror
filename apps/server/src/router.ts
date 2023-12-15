@@ -8,10 +8,10 @@ const router = Router()
 router.get("/users", UsersController.getAllUsers)
 router.get("/users/:id", UsersController.getUser)
 router.post("/users", UsersController.createUser)
-router.put("/users/profile/:id", UsersController.editUserProfile)
+router.put("/users/:id", UsersController.editUserProfile)
 router.patch(
   "/users/availableToday/:id",
-  UsersController.toggleIsAvailableToday,
+  UsersController.toggleIsAvailableToday
 )
 router.post("/meetings", MeetingController.createMeeting)
 router.get("/getMatch/:id", MeetingController.getMeeting)

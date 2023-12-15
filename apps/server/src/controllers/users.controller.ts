@@ -24,7 +24,7 @@ const UsersController = {
         firstName,
         lastName,
         email: req.body.email,
-        photo: req.body.avatar,
+        avatar: req.body.avatar,
       }
       const uid = req.body.uid
 

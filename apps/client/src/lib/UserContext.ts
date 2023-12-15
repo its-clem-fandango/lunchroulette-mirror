@@ -4,6 +4,7 @@ export interface UserData {
   id: string
   firstName: string
   lastName: string
+  avatar: string
   getToken: (forceRefresh?: boolean | undefined) => Promise<string>
 }
 

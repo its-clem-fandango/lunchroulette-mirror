@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select"
 import { apiUrl } from "@/lib/constants"
 import { UserContext, useUserContext } from "@/lib/UserContext"
+import avatarDefaultImage from "../assets/Ellipse_5.svg"
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50).default(""),
@@ -38,9 +39,9 @@ const formSchema = z.object({
     .any()
     .refine((files) => files.length >= 1, "Image is required.")
     .refine((files) => files[0].size <= 5000000, "Max file size is 5MB."),
-  companyName: z.string().min(2).max(50),
 })
 
+// should be called EditProfile?
 export default function CreateProfile() {
   const [user, setUser] = useUserContext()
 
@@ -51,28 +52,35 @@ export default function CreateProfile() {
     defaultValues: {
       firstName: user?.firstName,
       lastName: user?.lastName,
-      avatar: [],
-      companyName: "",
     },
   })
 
   const fileRef = form.register("avatar", { required: true })
   const fileList = form.watch("avatar")
-  const fileURL = fileList?.length
+  console.log({ fileList })
+  const didUserSelectFile = fileList?.length > 0
+  const fileURL = didUserSelectFile
     ? URL.createObjectURL(fileList[0])
-    : undefined
+    : user?.avatar
+
+  const avatarImage = fileURL || avatarDefaultImage
+
+  const firstName = user?.firstName
+  const lastName = user?.lastName
+  const idOfUser = user?.id
+  console.log("idOfUser", idOfUser)
 
   function onSubmit(values: z.infer<typeof formSchema>, e: React.FormEvent) {
     console.log("clicked")
-    console.log(user)
+    console.log("user", user)
     e.preventDefault()
 
     const requestOptions: RequestInit = {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ firstName, lastName }),
     }
-    fetch(`${apiUrl}/users`, requestOptions)
+    fetch(`${apiUrl}/users/:id`, requestOptions)
       .then((response) => {
         // Check if the request was successful
         if (!response.ok) {
@@ -93,21 +101,43 @@ export default function CreateProfile() {
 
   return (
     <>
-      <div>
-        <img src={fileURL} />
-      </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <Card className="w-[350px]">
-          <CardHeader>
-            <CardTitle>About Me</CardTitle>
-            <CardDescription>Tell us a little about yourself</CardDescription>
-          </CardHeader>
           <CardContent>
+            <div className="flex -space-x-1 overflow-hidden">
+              <img
+                className="inline-block rounded-full ring-2 ring-white h-20 w-20 absolute top-1 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                src={avatarImage}
+              />
+            </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
+                {
+                  <FormField
+                    control={form.control}
+                    name="avatar"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="grid w-full max-w-sm items-center gap-1.5">
+                          <FormLabel htmlFor="picture">
+                            Profile Picture
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              id="picture"
+                              type="file"
+                              accept="image/jpeg, image/png, image/webp"
+                              {...fileRef}
+                            />
+                          </FormControl>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                }
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -140,29 +170,6 @@ export default function CreateProfile() {
                     </FormItem>
                   )}
                 />
-                {
-                  <FormField
-                    control={form.control}
-                    name="avatar"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="grid w-full max-w-sm items-center gap-1.5">
-                          <FormLabel htmlFor="picture">
-                            Profile Picture
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              id="picture"
-                              type="file"
-                              accept="image/jpeg, image/png, image/webp"
-                              {...fileRef}
-                            />
-                          </FormControl>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                }
 
                 <Button type="submit">Continue</Button>
               </form>
