@@ -3,12 +3,13 @@ import { apiUrl } from "@/lib/constants"
 import { auth } from "../../firebase/firebaseConfig"
 import { Button } from "@/components/ui/button"
 import { Mail } from "lucide-react"
-import { boolean } from "zod"
 
 interface UserData {
   id: string
   firstName: string
   lastName: string
+  avatar: string
+  isAvailableToday: boolean
   getToken: (forceRefresh?: boolean | undefined) => Promise<string>
 }
 

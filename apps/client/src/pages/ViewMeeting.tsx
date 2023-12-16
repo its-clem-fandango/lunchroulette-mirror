@@ -87,7 +87,3 @@ export default function ViewMeeting() {
     </motion.div>
   )
 }
-
-// function NoLunchToday({}) {
-//   return <div>Sorry, you have no matches today!</div>
-//
