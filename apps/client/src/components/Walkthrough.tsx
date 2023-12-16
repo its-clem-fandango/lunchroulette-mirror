@@ -5,6 +5,7 @@ import avatar1 from "../assets/avatar1.png"
 import avatar1and2 from "../assets/avatar1and2.png"
 import { Button } from "./ui/button"
 import { motion } from "framer-motion"
+import { Frame } from "./ui/frame"
 
 interface WalkthroughProps {
   setSeeWalkthrough: (value: boolean) => void
