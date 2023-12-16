@@ -29,7 +29,7 @@ export const useUserContext = () => {
   return useContext(UserContext)
 }
 
-const fetchUserProfile = async (user: User | null): Promise<UserProfile | null> => { 
+const fetchUserProfileAndCreateItIfItDoesNotExist = async (user: User | null): Promise<UserProfile | null> => { 
   //implement this
   return null
 }
@@ -44,12 +44,14 @@ export const UserContextProvider: React.FC<{children: React.ReactNode}> = ({ chi
       if (user) {
 
         const userToken = user.getIdToken()
-        //do what you need with the token here
+        //do things with the token (i think you are saving it to local storage? maybe it is not needed any more)
 
-        fetchUserProfile(user)
+        fetchUserProfileAndCreateItIfItDoesNotExist(user)
           .then((profile) => {
             setUserProfile(profile)
           })
+      } else {
+        setUserProfile(null)
       }
 
     })
@@ -59,7 +61,7 @@ export const UserContextProvider: React.FC<{children: React.ReactNode}> = ({ chi
   
   const triggerUserProfileRefresh = async () => { 
     if (user) { 
-      const profile = await fetchUserProfile(user)
+      const profile = await fetchUserProfileAndCreateItIfItDoesNotExist(user)
       setUserProfile(profile)
     }
   }
