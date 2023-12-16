@@ -14,7 +14,8 @@ router.patch(
   UsersController.toggleIsAvailableToday
 )
 router.post("/meetings", MeetingController.createMeeting)
-router.get("/getMatch/:id", MeetingController.getMeeting)
+router.get("/matches/reset", UsersController.resetMatches)
 router.get("/matches", UsersController.getMatches)
+router.get("/matches/:id", MeetingController.getMeeting)
 
 export default router

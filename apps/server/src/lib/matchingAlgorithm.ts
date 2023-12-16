@@ -39,7 +39,7 @@ function updateUsersWithPairInfo(pairs: Pair[]): Pair[] {
     const [user1, user2] = pair
     const newUser1: User = {
       ...user1,
-      matchId: user2?.id,
+      matchId: user2?.id || null,
       lastMatched: currentDate,
     }
 
