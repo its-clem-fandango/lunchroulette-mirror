@@ -132,6 +132,15 @@ export default function AdminPanel() {
     }
   }
 
+  async function handleResetMatches() {
+    const response = await fetch(`${apiUrl}/matches/reset`)
+    if (!response.ok) {
+      console.error("Failed to reset matches")
+      return
+    }
+    getUsers()
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -149,10 +158,18 @@ export default function AdminPanel() {
           Set Availability: True
         </Button>
         <Button
-          className="mb-3 ml-3 bg-red-500"
+          variant="destructive"
+          className="mb-3 ml-3"
           onClick={handleSetAllUnavailable}
         >
           Set Availability: False
+        </Button>
+        <Button
+          variant="default"
+          className="mb-3 ml-3"
+          onClick={handleResetMatches}
+        >
+          Reset Matches
         </Button>
         <DataTable columns={columns} data={data} />
       </CardContent>

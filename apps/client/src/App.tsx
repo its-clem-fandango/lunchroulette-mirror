@@ -1,8 +1,9 @@
 import { BrowserRouter as Router } from "react-router-dom"
 import { UserContext, UserData } from "./lib/UserContext"
-import { useState, SetStateAction } from "react"
+import { useState, SetStateAction, useEffect, useCallback } from "react"
 import { useDidSeeWalkthrough } from "./lib/hooks/useFirstTime"
 import Walkthrough from "./components/Walkthrough"
+import { apiUrl } from "./lib/constants"
 import AnimatedRoutes from "./components/AnimatedRoutes"
 
 function App() {
@@ -13,10 +14,21 @@ function App() {
   }
   const [user, setUser] = useState<UserData | null>(defaultUserState)
 
-  function setUserWithLocalStorage(userData: SetStateAction<UserData | null>) {
+  const setUserWithLocalStorage = useCallback(function (
+    userData: SetStateAction<UserData | null>
+  ) {
     localStorage.setItem("LRUser", JSON.stringify(userData))
     setUser(userData)
-  }
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      if (!user) return
+      const response = await fetch(`${apiUrl}/users/${user?.id}`)
+      const data = await response.json()
+      setUserWithLocalStorage(data)
+    })()
+  }, [])
 
   const [didSeeWalkthrough, setSeeWalkthrough] = useDidSeeWalkthrough()
 

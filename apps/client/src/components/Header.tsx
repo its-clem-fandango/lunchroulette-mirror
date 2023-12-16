@@ -3,14 +3,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { useUserContext } from "@/lib/UserContext"
 import { Link } from "react-router-dom"
 
-function Header() {
+type HeaderProps = {
+  showLogo?: boolean
+}
+
+function Header({ showLogo = true }: HeaderProps) {
   const [user] = useUserContext()
 
   return (
     <div className="flex justify-between h-10">
       <div className="w-10" />
       <div>
-        <img src={rouletteimage} className="h-full" alt="Lunch Roulette Logo" />
+        {showLogo && (
+          <img
+            src={rouletteimage}
+            className="h-full"
+            alt="Lunch Roulette Logo"
+          />
+        )}
       </div>
       <div className="flex justify-end w-10">
         <Link to="/profile">

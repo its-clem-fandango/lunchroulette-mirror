@@ -7,11 +7,12 @@ export interface UserData {
   avatar: string
   isAvailableToday: boolean
   getToken: (forceRefresh?: boolean | undefined) => Promise<string>
+  lastMatched: string | null
 }
 
 export const UserContext = createContext<
   [UserData | null, React.Dispatch<React.SetStateAction<UserData | null>>]
->([null, () => { }])
+>([null, () => {}])
 
 export const useUserContext = () => {
   return useContext(UserContext)

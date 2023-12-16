@@ -105,11 +105,25 @@ const UsersController = {
       })
     )
 
-    const usersToUpdate = matchedUsers.filter((user) => user.matchId)
+    const usersToUpdate = matchedUsers
+
+    console.log({ usersToUpdate })
+
     await UserModel.updateBatch(usersToUpdate)
     console.log("Inside getMatches function")
 
     res.status(200).json(matchedUsers)
+  },
+
+  async resetMatches(_: Request, res: Response) {
+    const users = await UserModel.findAll()
+    const usersToUpdate = users.map((user) => ({
+      ...user,
+      matchId: null,
+      lastMatched: null,
+    }))
+    await UserModel.updateBatch(usersToUpdate)
+    res.status(200).json(usersToUpdate)
   },
 }
 
