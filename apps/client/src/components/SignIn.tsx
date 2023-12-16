@@ -1,16 +1,8 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { apiUrl } from "@/lib/constants"
 import { auth } from "../../firebase/firebaseConfig"
-import { Button } from "@/components/ui/button"
-import { Mail } from "lucide-react"
-import { boolean } from "zod"
-
-interface UserData {
-  id: string
-  firstName: string
-  lastName: string
-  getToken: (forceRefresh?: boolean | undefined) => Promise<string>
-}
+import { SignInGoogle } from "./SignInGoogle"
+import { UserData } from "@/lib/UserContext"
 
 interface SignInProps {
   onSignIn: (userData: UserData) => void
@@ -66,14 +58,7 @@ function SignIn({ onSignIn }: SignInProps) {
     })
   }
 
-  return (
-    <>
-      <Button onClick={handleGoogle} className="bg-teal-900">
-        <Mail className="mr-2 h-4 w-4" />
-        Sign in with Google
-      </Button>
-    </>
-  )
+  return <SignInGoogle onClick={handleGoogle} />
 }
 
 export default SignIn
