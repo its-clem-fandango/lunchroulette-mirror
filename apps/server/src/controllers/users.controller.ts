@@ -5,7 +5,7 @@ import { sendMatchEmail } from "../lib/emailService"
 import { fa } from "@faker-js/faker"
 
 const UsersController = {
-  async getAllUsers (_: Request, res: Response) {
+  async getAllUsers(_: Request, res: Response) {
     try {
       const users = await UserModel.findAll()
       res.status(200).json(users)
@@ -14,7 +14,7 @@ const UsersController = {
     }
   },
 
-  async createUser (req: Request, res: Response) {
+  async createUser(req: Request, res: Response) {
     console.log("Request", req.body)
     try {
       const displayName = req.body.displayName
@@ -39,7 +39,7 @@ const UsersController = {
     }
   },
 
-  async getUser (req: Request, res: Response) {
+  async getUser(req: Request, res: Response) {
     try {
       const userId = req.params.id
       // Fix
@@ -50,7 +50,7 @@ const UsersController = {
     }
   },
 
-  async editUserProfile (req: Request, res: Response) {
+  async editUserProfile(req: Request, res: Response) {
     try {
       const userId = req.params.id
       const data = {
@@ -65,7 +65,7 @@ const UsersController = {
     }
   },
 
-  async toggleIsAvailableToday (req: Request, res: Response) {
+  async toggleIsAvailableToday(req: Request, res: Response) {
     try {
       console.log("triggered toggle method")
       const userId = req.params.id
@@ -85,12 +85,16 @@ const UsersController = {
     }
   },
 
-  async getMatches (_: Request, res: Response) {
+  async getMatches(_: Request, res: Response) {
     const users = await UserModel.findAll()
     const matchedUsers = await createMatches(users as User[])
     await Promise.all(
       matchedUsers.map(async (user) => {
-        if (!user.matchId) throw new Error("Sorry, any match for today")
+        if (!user.matchId) {
+          console.log("No match found for", user.firstName)
+          // TODO: Send email to user that no match was found
+          return
+        }
         const match = await UserModel.findById(user.matchId)
         return await sendMatchEmail(
           user.email,
