@@ -57,14 +57,7 @@ export default function Homepage() {
 
   return (
     <>
-      <motion.div
-        className="fixed h-full max-h-screen overflow-hidden w-full bg-white py-14 px-10 box-border"
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
-      >
-        <Frame>
+      <Frame>
         <Header />
         <div className="flex flex-col items-center max-w-[480px] w-full mx-auto pt-12 text-center">
           <header className="text-half-baked-300 font-semibold text-2xl mt-20 ">
@@ -102,7 +95,6 @@ export default function Homepage() {
         alt="Lunch roulette wheel"
         className={cn("fixed bottom-[-23%]", loading && "animate-spin")}
       />
-      </motion.div>
     </>
   )
 }

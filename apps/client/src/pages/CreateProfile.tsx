@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { apiUrl } from "@/lib/constants"
 import { useUserContext } from "@/lib/UserContext"
 import avatarDefaultImage from "../assets/Ellipse_5.svg"
+import { Frame } from "@/components/ui/frame"
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50).default(""),
@@ -90,86 +91,86 @@ export default function CreateProfile() {
   return (
     <>
       <motion.div
-        className="fixed h-full w-full bg-white py-14 px-10 box-border"
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
+        className="fixed h-full w-full bg-white box-border"
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ duration: 0.45, ease: [0.43, 0.13, 0.23, 0.96] }}
       >
-        <Card className="w-[350px]">
-          <CardContent>
-            <div className="flex -space-x-1 overflow-hidden">
-              <img
-                className="inline-block rounded-full ring-2 ring-white h-20 w-20 absolute top-1 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                src={avatarImage}
-              />
-            </div>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5"
-              >
-                {
+        <Frame>
+          <img
+            className="rounded-full ring-2 ring-white h-20 w-20 mx-auto"
+            src={avatarImage}
+          />
+          <Card className="w-[350px] mt-10 pt-5">
+            <CardContent>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-5"
+                >
+                  {
+                    <FormField
+                      control={form.control}
+                      name="avatar"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="grid w-full max-w-sm items-center gap-1.5">
+                            <FormLabel htmlFor="picture">
+                              Profile Picture
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                id="picture"
+                                type="file"
+                                accept="image/jpeg, image/png, image/webp"
+                                {...fileRef}
+                              />
+                            </FormControl>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  }
                   <FormField
                     control={form.control}
-                    name="avatar"
+                    name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <div className="grid w-full max-w-sm items-center gap-1.5">
-                          <FormLabel htmlFor="picture">
-                            Profile Picture
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              id="picture"
-                              type="file"
-                              accept="image/jpeg, image/png, image/webp"
-                              {...fileRef}
-                            />
-                          </FormControl>
-                        </div>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter your first name..."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
-                }
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your first name..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your last name..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter your last name..."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <Button type="submit">Continue</Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+                  <Button type="submit">Continue</Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </Frame>
       </motion.div>
     </>
   )

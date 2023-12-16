@@ -48,11 +48,11 @@ export default function ViewMeeting() {
 
   return (
     <motion.div
-      className="fixed h-full w-full bg-white py-14 px-10 box-border"
+      className="fixed h-full w-full"
       initial={{ y: "100%" }}
       animate={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.45, ease: [0.43, 0.13, 0.23, 0.96] }}
     >
       <div className="bg-sherpa-800 text-white">
         <Frame className="flex flex-col min-h-screen">

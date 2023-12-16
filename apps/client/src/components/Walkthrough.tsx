@@ -7,6 +7,8 @@ import { Button } from "./ui/button"
 import { motion } from "framer-motion"
 import { Frame } from "./ui/frame"
 
+const transition = { duration: 0.45, ease: [0.43, 0.13, 0.23, 0.96] }
+
 interface WalkthroughProps {
   setSeeWalkthrough: (value: boolean) => void
 }
@@ -44,41 +46,39 @@ function Walkthrough({ setSeeWalkthrough }: WalkthroughProps) {
 
   return (
     <motion.div
-      className="fixed h-full w-full bg-white py-14 px-10 box-border"
+      className="fixed h-full w-full bg-white box-border"
       style={{ zIndex: 1000 }}
       initial={{ y: "100%" }}
       animate={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 1 }}
+      transition={transition}
     >
-      <div className="fixed h-full z-50 bg-white">
-        <Frame>
-          <div className="flex justify-between">
-            <a
-              href="#"
-              className="text-sherpa-900 font-semibold"
-              onClick={handleSkip}
-            >
-              Skip
-            </a>
-            <a
-              href="#"
-              className="text-sherpa-900 font-semibold"
-              onClick={incrementStep}
-            >
-              Next
-            </a>
-          </div>
-          <div className="text-center mt-8 text-sherpa-900">
-            <CurrentContent onSkip={handleSkip} />
-          </div>
-        </Frame>
-        <img
-          src={roulettewheel}
-          alt="Lunch roulette wheel"
-          className="fixed bottom-[-23%]"
-        />
-      </div>
+      <Frame>
+        <div className="flex justify-between">
+          <a
+            href="#"
+            className="text-sherpa-900 font-semibold"
+            onClick={handleSkip}
+          >
+            Skip
+          </a>
+          <a
+            href="#"
+            className="text-sherpa-900 font-semibold"
+            onClick={incrementStep}
+          >
+            Next
+          </a>
+        </div>
+        <div className="text-center mt-8 text-sherpa-900">
+          <CurrentContent onSkip={handleSkip} />
+        </div>
+      </Frame>
+      <img
+        src={roulettewheel}
+        alt="Lunch roulette wheel"
+        className="fixed bottom-[-23%]"
+      />
     </motion.div>
   )
 }
@@ -88,25 +88,16 @@ export default Walkthrough
 function WalkthroughStep1() {
   return (
     <>
-      <motion.div
-        style={{ zIndex: 1000 }}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-sherpa-500 font-bold  text-xl m-4">Welcome to</h2>
-        <img className="mx-auto" src={rouletteimage} alt="Lunch Roulette" />
-        <p className="my-10">
-          Join us <strong>daily at 1pm</strong> for an exciting lunch
-          rendezvous!{" "}
-          <strong>Get paired with a new colleague for each meal.</strong>
-        </p>
-        <p className="my-10">
-          It's a delightful opportunity to connect, expand your professional
-          circle, and fortify the bonds within our community.
-        </p>
-      </motion.div>
+      <h2 className="text-sherpa-500 font-bold  text-xl m-4">Welcome to</h2>
+      <img className="mx-auto" src={rouletteimage} alt="Lunch Roulette" />
+      <p className="my-10">
+        Join us <strong>daily at 1pm</strong> for an exciting lunch rendezvous!{" "}
+        <strong>Get paired with a new colleague for each meal.</strong>
+      </p>
+      <p className="my-10">
+        It's a delightful opportunity to connect, expand your professional
+        circle, and fortify the bonds within our community.
+      </p>
     </>
   )
 }
@@ -116,10 +107,10 @@ function WalkthroughStep2() {
     <>
       <motion.div
         style={{ zIndex: 1000 }}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={transition}
       >
         <h2 className="text-sherpa-500 font-bold  text-xl m-4">
           1. Join the Pool 🤿
@@ -148,10 +139,10 @@ function WalkthroughStep3() {
     <>
       <motion.div
         style={{ zIndex: 1000 }}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={transition}
       >
         <h2 className="text-sherpa-500 font-bold  text-xl m-4">
           2. Get Matched 🤖
@@ -180,10 +171,10 @@ function WalkthroughStep4({ onSkip }: { onSkip: () => void }) {
     <>
       <motion.div
         style={{ zIndex: 1000 }}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={transition}
       >
         <h2 className="text-sherpa-500 font-bold text-xl m-4">
           3. Grow your network 🕺
