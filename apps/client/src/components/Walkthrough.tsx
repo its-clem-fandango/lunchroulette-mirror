@@ -43,41 +43,43 @@ function Walkthrough({ setSeeWalkthrough }: WalkthroughProps) {
   }, [currentStep, setSeeWalkthrough])
 
   return (
-    <>
-      <motion.div
-        className="fixed h-full w-full bg-white py-14 px-10 box-border"
-        style={{ zIndex: 1000 }}
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "-100%" }}
-        transition={{ duration: 1 }}
-      >
-        <div className="flex justify-between">
-          <a
-            href="#"
-            className="text-sherpa-900 font-semibold"
-            onClick={handleSkip}
-          >
-            Skip
-          </a>
-          <a
-            href="#"
-            className="text-sherpa-900 font-semibold"
-            onClick={incrementStep}
-          >
-            Next
-          </a>
-        </div>
-        <div className="text-center mt-8 text-sherpa-900">
-          <CurrentContent onSkip={handleSkip} />
-        </div>
-      </motion.div>
-      <img
-        src={roulettewheel}
-        alt="Lunch roulette wheel"
-        className="fixed bottom-[-23%]"
-      />
-    </>
+    <motion.div
+      className="fixed h-full w-full bg-white py-14 px-10 box-border"
+      style={{ zIndex: 1000 }}
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 1 }}
+    >
+      <div className="fixed h-full z-50 bg-white">
+        <Frame>
+          <div className="flex justify-between">
+            <a
+              href="#"
+              className="text-sherpa-900 font-semibold"
+              onClick={handleSkip}
+            >
+              Skip
+            </a>
+            <a
+              href="#"
+              className="text-sherpa-900 font-semibold"
+              onClick={incrementStep}
+            >
+              Next
+            </a>
+          </div>
+          <div className="text-center mt-8 text-sherpa-900">
+            <CurrentContent onSkip={handleSkip} />
+          </div>
+        </Frame>
+        <img
+          src={roulettewheel}
+          alt="Lunch roulette wheel"
+          className="fixed bottom-[-23%]"
+        />
+      </div>
+    </motion.div>
   )
 }
 
