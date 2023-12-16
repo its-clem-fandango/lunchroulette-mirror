@@ -9,6 +9,8 @@ import { useState, SetStateAction } from "react"
 // import SignIn from "./pages/SignIn"
 // import SignUp from "./pages/SignUp"
 import Homepage from "./pages/Homepage"
+import { useDidSeeWalkthrough } from "./lib/hooks/useFirstTime"
+import Walkthrough from "./components/Walkthrough"
 
 function App() {
   const data = localStorage.getItem("LRUser")
@@ -23,8 +25,13 @@ function App() {
     setUser(userData)
   }
 
+  const [didSeeWalkthrough, setSeeWalkthrough] = useDidSeeWalkthrough()
+
   return (
     <UserContext.Provider value={[user, setUserWithLocalStorage]}>
+      {!didSeeWalkthrough && (
+        <Walkthrough setSeeWalkthrough={setSeeWalkthrough} />
+      )}
       <Router>
         {/* NAVIGATION */}
         {/*     <nav>

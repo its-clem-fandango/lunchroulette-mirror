@@ -17,6 +17,20 @@ module.exports = {
     },
     extend: {
       colors: {
+        sherpa: {
+          50: "#effefc",
+          100: "#cafdfa",
+          200: "#95faf7",
+          300: "#58eff0",
+          400: "#26d4db",
+          500: "#0db6bf",
+          600: "#078f9a",
+          700: "#0b707a",
+          800: "#0e5861",
+          900: "#10484e",
+          950: "#022a31",
+        },
+
         myColor: "#10484E",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
