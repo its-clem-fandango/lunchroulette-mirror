@@ -1,14 +1,8 @@
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { motion } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -20,15 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+
 import { apiUrl } from "@/lib/constants"
-import { UserContext, useUserContext } from "@/lib/UserContext"
+import { useUserContext } from "@/lib/UserContext"
 import avatarDefaultImage from "../assets/Ellipse_5.svg"
 
 const formSchema = z.object({
@@ -101,7 +89,13 @@ export default function CreateProfile() {
 
   return (
     <>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <motion.div
+        className="fixed h-full w-full bg-white py-14 px-10 box-border"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "-100%" }}
+        transition={{ duration: 1 }}
+      >
         <Card className="w-[350px]">
           <CardContent>
             <div className="flex -space-x-1 overflow-hidden">
@@ -176,7 +170,7 @@ export default function CreateProfile() {
             </Form>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </>
   )
 }

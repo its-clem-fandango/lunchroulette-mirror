@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 const TIME = "12:00 PM"
 const LOCATION = "Honest Greens"
@@ -64,7 +65,13 @@ export default function ViewMeeting() {
   const navigate = useNavigate()
 
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <motion.div
+      className="fixed h-full w-full bg-white py-14 px-10 box-border"
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 1 }}
+    >
       {noMatch ? (
         <Card className="w-[350px]">
           <CardHeader>
@@ -77,10 +84,6 @@ export default function ViewMeeting() {
       ) : (
         <TodaysLunch matches={matches} time={TIME} location={LOCATION} />
       )}
-    </div>
+    </motion.div>
   )
 }
-
-// function NoLunchToday({}) {
-//   return <div>Sorry, you have no matches today!</div>
-//
