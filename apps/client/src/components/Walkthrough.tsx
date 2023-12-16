@@ -4,6 +4,7 @@ import roulettewheel from "../assets/roulette-wheel.svg"
 import avatar1 from "../assets/avatar1.png"
 import avatar1and2 from "../assets/avatar1and2.png"
 import { Button } from "./ui/button"
+import { Frame } from "./ui/frame"
 
 interface WalkthroughProps {
   setSeeWalkthrough: (value: boolean) => void
@@ -42,32 +43,34 @@ function Walkthrough({ setSeeWalkthrough }: WalkthroughProps) {
 
   return (
     <>
-      <div className="fixed h-full w-full bg-white py-14 px-10 box-border">
-        <div className="flex justify-between">
-          <a
-            href="#"
-            className="text-sherpa-900 font-semibold"
-            onClick={handleSkip}
-          >
-            Skip
-          </a>
-          <a
-            href="#"
-            className="text-sherpa-900 font-semibold"
-            onClick={incrementStep}
-          >
-            Next
-          </a>
-        </div>
-        <div className="text-center mt-8 text-sherpa-900">
-          <CurrentContent onSkip={handleSkip} />
-        </div>
+      <div className="fixed z-50 bg-white">
+        <Frame>
+          <div className="flex justify-between">
+            <a
+              href="#"
+              className="text-sherpa-900 font-semibold"
+              onClick={handleSkip}
+            >
+              Skip
+            </a>
+            <a
+              href="#"
+              className="text-sherpa-900 font-semibold"
+              onClick={incrementStep}
+            >
+              Next
+            </a>
+          </div>
+          <div className="text-center mt-8 text-sherpa-900">
+            <CurrentContent onSkip={handleSkip} />
+          </div>
+        </Frame>
+        <img
+          src={roulettewheel}
+          alt="Lunch roulette wheel"
+          className="fixed bottom-[-23%]"
+        />
       </div>
-      <img
-        src={roulettewheel}
-        alt="Lunch roulette wheel"
-        className="fixed bottom-[-23%]"
-      />
     </>
   )
 }

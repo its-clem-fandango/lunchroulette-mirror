@@ -22,11 +22,9 @@ const CountdownTimer = ({ countdownTimestampMs }: any) => {
   }
 
   return (
-    <div>
-      <span>
-        {remainingTime.hours}:{remainingTime.minutes}:{remainingTime.seconds}
-      </span>
-    </div>
+    <span>
+      {remainingTime.hours}:{remainingTime.minutes}:{remainingTime.seconds}
+    </span>
   )
 }
 
