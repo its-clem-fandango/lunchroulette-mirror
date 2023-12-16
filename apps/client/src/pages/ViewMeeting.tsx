@@ -64,6 +64,8 @@ export default function ViewMeeting() {
 
   const navigate = useNavigate()
 
+  console.log({ matches, noMatch })
+
   return (
     <motion.div
       className="fixed h-full w-full bg-white py-14 px-10 box-border"
