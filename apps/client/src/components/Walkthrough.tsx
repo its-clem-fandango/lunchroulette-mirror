@@ -4,6 +4,7 @@ import roulettewheel from "../assets/roulette-wheel.svg"
 import avatar1 from "../assets/avatar1.png"
 import avatar1and2 from "../assets/avatar1and2.png"
 import { Button } from "./ui/button"
+import { motion } from "framer-motion"
 
 interface WalkthroughProps {
   setSeeWalkthrough: (value: boolean) => void
@@ -42,7 +43,13 @@ function Walkthrough({ setSeeWalkthrough }: WalkthroughProps) {
 
   return (
     <>
-      <div className="fixed h-full w-full bg-white py-14 px-10 box-border">
+      <motion.div
+        className="fixed h-full w-full bg-white py-14 px-10 box-border"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "-100%" }}
+        transition={{ duration: 1 }}
+      >
         <div className="flex justify-between">
           <a
             href="#"
@@ -62,7 +69,7 @@ function Walkthrough({ setSeeWalkthrough }: WalkthroughProps) {
         <div className="text-center mt-8 text-sherpa-900">
           <CurrentContent onSkip={handleSkip} />
         </div>
-      </div>
+      </motion.div>
       <img
         src={roulettewheel}
         alt="Lunch roulette wheel"

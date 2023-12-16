@@ -2,6 +2,7 @@ import { UserData, useUserContext } from "@/lib/UserContext"
 import rouletteimage from "../assets/roulette-logo.svg"
 import SignIn from "@/components/SignIn"
 import { useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
 
 // Refactor so we don't repeat (this goes in the context?)
 
@@ -17,7 +18,13 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="fixed h-full w-full bg-white py-14 px-10 box-border">
+    <motion.div
+      className="fixed h-full w-full bg-white py-14 px-10 box-border"
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 1 }}
+    >
       <div className="items-stretch flex flex-col py-12">
         <img
           src={rouletteimage}
@@ -31,6 +38,6 @@ export default function LandingPage() {
           <SignIn onSignIn={handleSignIn} />
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
