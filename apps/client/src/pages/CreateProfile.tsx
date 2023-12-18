@@ -55,7 +55,6 @@ export default function CreateProfile() {
   const firstName = user?.firstName
   const lastName = user?.lastName
   const idOfUser = user?.id
-  console.log("idOfUser", idOfUser)
 
   // File (Profile Picture) Management -> To put it on the Avatar Image to show to user
   const fileRef = form.register("avatar", { required: true })
@@ -71,7 +70,6 @@ export default function CreateProfile() {
     values: z.infer<typeof formSchema>
     // e: React.FormEvent
   ) {
-    console.log("user", user)
     // e.preventDefault()
 
     // NOW WE DO THE PUT REQUEST
@@ -204,36 +202,41 @@ export default function CreateProfile() {
             className="rounded-full ring-2 ring-white h-20 w-20 mx-auto"
             src={avatarImage}
           />
-          <Card className="w-[350px] mt-10 pt-5">
-            <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-5"
-                >
-                  {
-                    <FormField
-                      control={form.control}
-                      name="avatar"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="grid w-full max-w-sm items-center gap-1.5">
-                            <FormLabel htmlFor="picture">
-                              Profile Picture
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                id="picture"
-                                type="file"
-                                accept="image/jpeg, image/png, image/webp"
-                                {...fileRef}
-                              />
-                            </FormControl>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <div className="text-center">
+                <FormField
+                  control={form.control}
+                  name="avatar"
+                  render={({ field }) => (
+                    <FormItem className="hidden">
+                      <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <FormLabel htmlFor="picture">Profile Picture</FormLabel>
+                        <FormControl>
+                          <Input
+                            id="picture"
+                            type="file"
+                            accept="image/jpeg, image/png, image/webp"
+                            {...fileRef}
+                          />
+                        </FormControl>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="button"
+                  className="bg-sherpa-900 mt-4"
+                  onClick={() =>
+                    window.document.getElementById("picture")?.click()
                   }
+                >
+                  Change profile picture
+                </Button>
+              </div>
+              <Card className="w-[350px] mt-10 pt-5">
+                <CardContent>
                   <FormField
                     control={form.control}
                     name="firstName"
@@ -266,11 +269,13 @@ export default function CreateProfile() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit">Continue</Button>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+                  <Button className="mt-4 w-full" type="submit">
+                    Continue
+                  </Button>
+                </CardContent>
+              </Card>
+            </form>
+          </Form>
         </Frame>
       </motion.div>
     </>
