@@ -15,13 +15,16 @@ function App() {
   }
   const [user, setUser] = useState<UserData | null>(defaultUserState)
 
-  const setUserWithLocalStorage = useCallback(function (
-    userData: SetStateAction<UserData | null>
-  ) {
-    const newUserData = userData instanceof Function ? userData(user) : userData
-    localStorage.setItem("LRUser", JSON.stringify(newUserData))
-    setUser(userData)
-  }, [])
+  const setUserWithLocalStorage = useCallback(
+    function (userData: SetStateAction<UserData | null>) {
+      console.log({ user })
+      const newUserData =
+        userData instanceof Function ? userData(user) : userData
+      localStorage.setItem("LRUser", JSON.stringify(newUserData))
+      setUser(userData)
+    },
+    [user]
+  )
 
   useEffect(() => {
     ;(async () => {

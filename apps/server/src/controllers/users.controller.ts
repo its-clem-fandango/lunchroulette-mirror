@@ -57,11 +57,13 @@ const UsersController = {
         // Testing with Postman x-www-form-urlencoded
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        avatar: req.body.avatar,
       }
+      // @ts-ignore
+      if (req.body.avatar) data.avatar = req.body.avatar
       const user = await UserModel.update(userId, data, true)
       res.status(200).json(user)
     } catch (error) {
+      console.error(error)
       res.status(400).json(error)
     }
   },
