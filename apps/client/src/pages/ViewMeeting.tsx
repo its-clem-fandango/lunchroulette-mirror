@@ -61,27 +61,10 @@ export default function ViewMeeting() {
             {renderStatus(user!, match)}
           </div>
         </Frame>
-
-        {/* {noMatch ? (
-        <Card className="w-[350px]">
-          <CardHeader>
-            <CardTitle>Sorry, we couldn't find a match for you today</CardTitle>
-          </CardHeader>
-          <Button className="m-3" onClick={() => navigate(-1)}>
-            Go Back
-          </Button>
-        </Card>
-      ) : (
-        <TodaysLunch matches={matches} time={TIME} location={"LOCATION"} />
-      )} */}
       </div>
     </motion.div>
   )
 }
-
-// function NoLunchToday({}) {
-//   return <div>Sorry, you have no matches today!</div>
-//
 
 function renderStatus(user: UserData, match?: Match) {
   switch (match?.status) {
@@ -118,8 +101,8 @@ function PendingForMatch({ user, match }: MatchInfoProps) {
           🤿
         </h2>
         <p>
-          At <strong>12pm</strong>, we'll match you with a random person to go
-          have lunch with today.
+          At <strong>12pm</strong>, we'll match you with a random person to have
+          lunch with today.
         </p>
       </div>
       <div className="py-10">
@@ -131,7 +114,7 @@ function PendingForMatch({ user, match }: MatchInfoProps) {
       </div>
       <div className="flex flex-col justify-start">
         <p className="py-4">
-          Netx match <strong>{moment(match?.nextEventTime).fromNow()}</strong>
+          Next match <strong>{moment(match?.nextEventTime).fromNow()}</strong>
         </p>
         <p className="py-4">
           We'll send you a notification with the details of your match then. ✉️
@@ -173,7 +156,10 @@ function NotMatched({ user }: MatchInfoProps) {
     <div className="h-full flex flex-col">
       <div className="flex flex-col justify-end">
         <h2 className="text-3xl font-semibold mb-10">Oh no!</h2>
-        <p>We did not find a match for you to have lunch with today.</p>
+        <p>
+          Unfortunately, we were unable to find a match for you to have lunch
+          with today.
+        </p>
       </div>
       <div className="py-10">
         <AvatarPair
@@ -184,9 +170,9 @@ function NotMatched({ user }: MatchInfoProps) {
       </div>
       <div className="flex flex-col justify-start">
         <p className="py-4">
-          <strong>But don’t give up! </strong>
+          <strong>Don't lose hope! </strong>
           <br />
-          You can come tomorrow for an exciting new connection.
+          Come back tomorrow for another chance to make an exciting connection.{" "}
         </p>
       </div>
     </div>
