@@ -43,9 +43,9 @@ function SignIn({ onSignIn }: SignInProps) {
     if (!responseCreateUser.ok) {
       const responseUsers = await fetch(`${apiUrl}/users`)
       if (!responseUsers.ok) throw new Error("oops")
-
       const users = await responseUsers.json()
-      newUser = users.find((u: any) => u.email === email)
+      console.log({ users })
+      newUser = users.find((u: any) => u.id === uid)
     } else {
       newUser = await responseCreateUser.json()
     }

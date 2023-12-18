@@ -5,9 +5,9 @@ export interface UserData {
   firstName: string
   lastName: string
   avatar: string
-  isAvailableToday: boolean
-  getToken: (forceRefresh?: boolean | undefined) => Promise<string>
-  lastMatched: string | null
+  isAvailableToday?: boolean
+  getToken?: (forceRefresh?: boolean | undefined) => Promise<string>
+  lastMatched?: string | null
 }
 
 export const UserContext = createContext<
