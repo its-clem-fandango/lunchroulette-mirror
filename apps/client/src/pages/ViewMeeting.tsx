@@ -170,7 +170,7 @@ function NotMatched({ user }: MatchInfoProps) {
       </div>
       <div className="flex flex-col justify-start">
         <p className="py-4">
-          <strong>Don't lose hope! </strong>
+          <strong>But don’t give up! </strong>
           <br />
           Come back tomorrow for another chance to make an exciting connection.{" "}
         </p>
