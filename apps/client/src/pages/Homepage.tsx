@@ -61,7 +61,7 @@ export default function Homepage() {
         <Header />
         <div className="flex flex-col items-center max-w-[480px] w-full mx-auto pt-12 text-center">
           <header className="text-half-baked-300 font-semibold text-2xl mt-20 ">
-            You're in the pool!
+            You're not in the pool!
           </header>
 
           <main className="flex flex-col mt-10 px-8">
@@ -69,8 +69,8 @@ export default function Homepage() {
               <strong>Join the pool</strong>
             </p>
             <p className="py-4 w-56">
-              so you can get matched with a random person to have lunch today at
-              1pm
+              so you can be matched with a random person to have lunch with
+              today at 1pm.
             </p>
             <div className="text-myColor text-center py-4">
               <span>Next lunch in </span>
