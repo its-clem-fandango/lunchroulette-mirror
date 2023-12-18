@@ -1,8 +1,8 @@
 import { UserData, useUserContext } from "@/lib/UserContext"
-import rouletteimage from "../assets/roulette-logo.svg"
+import rouletteimage from "../assets/typelogo.svg"
+import ruletto from "../assets/ruletto.png"
 import SignIn from "@/components/SignIn"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
 import { Frame } from "@/components/ui/frame"
 
 // Refactor so we don't repeat (this goes in the context?)
@@ -21,10 +21,18 @@ export default function LandingPage() {
   return (
     <Frame>
       <div className="items-stretch flex flex-col py-12">
-        <img
-          src={rouletteimage}
-          className="aspect-[2.08] object-contain object-center w-[249px] overflow-hidden self-center max-w-full mt-36"
-        />
+        <div className="mx-auto relative">
+          <img
+            src={ruletto}
+            className="ruletto absolute w-[94px] bottom-[50px] left-[24px]"
+          />
+          <div className="bg-white relative">
+            <img
+              src={rouletteimage}
+              className="object-contain object-center w-[249px] overflow-hidden self-center max-w-full mt-36"
+            />
+          </div>
+        </div>
         <header className="leading-7 tracking-normal self-center whitespace-wrap mt-20 text-center">
           <p>
             We built Lunch Roulette so Norrsken members can get to know each
