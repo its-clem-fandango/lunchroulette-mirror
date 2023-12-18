@@ -1,4 +1,4 @@
-import rouletteimage from "@/assets/roulette-logo.svg"
+import rouletteimage from "@/assets/typelogo.svg"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { useUserContext } from "@/lib/UserContext"
 import { Link } from "react-router-dom"

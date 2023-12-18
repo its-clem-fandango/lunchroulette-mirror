@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import rouletteimage from "../assets/roulette-logo.svg"
+import rouletteimage from "../assets/typelogo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
 import avatar1 from "../assets/avatar1.png"
 import avatar1and2 from "../assets/avatar1and2.png"
