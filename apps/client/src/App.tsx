@@ -8,6 +8,7 @@ import AnimatedRoutes from "./components/AnimatedRoutes"
 
 function App() {
   const data = localStorage.getItem("LRUser")
+  if (data === "undefined") localStorage.removeItem("LRUser")
   let defaultUserState = null
   if (data !== null) {
     defaultUserState = JSON.parse(data)
@@ -17,7 +18,8 @@ function App() {
   const setUserWithLocalStorage = useCallback(function (
     userData: SetStateAction<UserData | null>
   ) {
-    localStorage.setItem("LRUser", JSON.stringify(userData))
+    const newUserData = userData instanceof Function ? userData(user) : userData
+    localStorage.setItem("LRUser", JSON.stringify(newUserData))
     setUser(userData)
   }, [])
 
