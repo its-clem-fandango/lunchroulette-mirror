@@ -117,7 +117,7 @@ function WalkthroughStep2() {
         </h2>
         <p className="my-10">
           Simply <strong>link your Google account</strong> and{" "}
-          <strong>personalise your profile</strong> for easy recognition.
+          <strong>personalize your profile</strong> for easy recognition.
         </p>
         <p className="my-10">
           Then, whenever you're in the mood to mingle,{" "}
