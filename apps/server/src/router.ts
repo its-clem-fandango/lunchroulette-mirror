@@ -9,8 +9,8 @@ router.get("/users", UsersController.getAllUsers)
 router.get("/users/:id", UsersController.getUser)
 router.post("/users", UsersController.createUser)
 router.put("/users/:id", UsersController.editUserProfile)
-router.patch(
-  "/users/availableToday/:id",
+router.post(
+  "/users/:id/availableToday",
   UsersController.toggleIsAvailableToday
 )
 router.post("/meetings", MeetingController.createMeeting)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Button } from "./ui/button"
-import { apiUrl } from "@/lib/constants"
+import usersApi from "@/lib/usersApi"
 
 type ConfirmLunchButtonProps = {
   currentUserId: string
@@ -13,26 +13,21 @@ const ConfirmLunchButton: React.FC<ConfirmLunchButtonProps> = ({
 
   useEffect(() => {
     async function getLunchStatus() {
-      const response = await fetch(`${apiUrl}/users/${currentUserId}`)
-      const user = await response.json()
+      const userProfile = await usersApi.getUserById(currentUserId)
 
-      if (user.isAvailableToday) {
+      if (userProfile.isAvailableToday) {
         setSignedUpForLunch(true)
       }
     }
     getLunchStatus()
-  }, [])
+  }, [currentUserId])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    const response = await fetch(
-      `${apiUrl}/users/availableToday/${currentUserId}`,
-      { method: "PATCH" },
-    )
-    const updatedUser = await response.json()
+    const updatedUser = await usersApi.toggleIsAvailableToday(currentUserId)
 
-    setSignedUpForLunch(updatedUser.isAvailableToday)
+    setSignedUpForLunch(updatedUser.isAvailableToday || false)
   }
 
   return (

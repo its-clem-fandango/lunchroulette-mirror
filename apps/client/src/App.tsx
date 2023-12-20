@@ -3,8 +3,8 @@ import { UserContext, UserData } from "./lib/UserContext"
 import { useState, SetStateAction, useEffect, useCallback } from "react"
 import { useDidSeeWalkthrough } from "./lib/hooks/useFirstTime"
 import Walkthrough from "./components/Walkthrough"
-import { apiUrl } from "./lib/constants"
 import AnimatedRoutes from "./components/AnimatedRoutes"
+import usersApi from "./lib/usersApi"
 
 function App() {
   const data = localStorage.getItem("LRUser")
@@ -26,13 +26,12 @@ function App() {
   )
 
   useEffect(() => {
-    ; (async () => {
+    (async () => {
       if (!user) return
-      const response = await fetch(`${apiUrl}/users/${user?.id}`)
-      const data = await response.json()
-      setUserWithLocalStorage(data)
+      const userProfile = await usersApi.getUserById(user.id)
+      setUserWithLocalStorage(userProfile)
     })()
-  }, [])
+  }, [user, setUserWithLocalStorage])
 
   const [didSeeWalkthrough, setSeeWalkthrough] = useDidSeeWalkthrough()
 

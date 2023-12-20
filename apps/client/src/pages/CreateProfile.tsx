@@ -2,9 +2,8 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { motion } from "framer-motion"
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { getStorage, ref, uploadBytes, getDownloadURL, StorageReference } from "firebase/storage"
 import { Card, CardContent } from "@/components/ui/card"
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,12 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
-import { apiUrl } from "@/lib/constants"
 import { useUserContext } from "@/lib/UserContext"
 import avatarDefaultImage from "../assets/Ellipse_5.svg"
 import { Frame } from "@/components/ui/frame"
 import { useNavigate } from "react-router-dom"
+import usersApi from "@/lib/usersApi"
 
 // should be called EditProfile?
 export default function CreateProfile() {
@@ -68,66 +66,38 @@ export default function CreateProfile() {
   // This is when the Submit actually happens
   async function onSubmit(
     values: z.infer<typeof formSchema>
-    // e: React.FormEvent
   ) {
-    // e.preventDefault()
 
-    // NOW WE DO THE PUT REQUEST
-    // There are
-    function uploadAndGetDownloadURL(imageRef: any) {
-      return getDownloadURL(imageRef)
-        .then((url) => {
-          // The URL is now returned from this function
-          return url // This is the important change
-        })
-        .catch((error) => {
-          // Handle any errors
-          console.error("Error getting the download URL", error)
-          throw new Error("Error getting the download URL")
-        })
-    }
+    if (user) {
+      const didUserSelectFile = fileList?.length > 0
+      if (didUserSelectFile) {
+        const file = fileList[0]
 
-    // Upload new Image to Firebase Storage
-    const didUserSelectFile = fileList?.length > 0
-    if (didUserSelectFile) {
-      const file = fileList[0]
-      // Get a storage reference
-      const storage = getStorage()
-      const storageRef = ref(storage, `${idOfUser}.jpg`)
+        const storage = getStorage()
+        const storageRef = ref(storage, `${idOfUser}.jpg`)
 
-      // add your image in that refrence
-      const snapshot = await uploadBytes(storageRef, file)
+        await uploadBytes(storageRef, file)
 
-      //For retrieval
-      // Create a reference to the file you want to download in firestore
-      const imageRef = ref(storage, `${idOfUser}.jpg`)
+        const imageRef = ref(storage, `${idOfUser}.jpg`)
 
-      uploadAndGetDownloadURL(imageRef).then((urlForAvatar) => {
-        // This case WITH the image change
+        uploadAndGetDownloadURL(imageRef)
+          .then(async (urlForAvatar) => {
+            await usersApi.updateUserProfile(user.id, values.firstName, values.lastName, values.avatar)
 
-        // Now that we have the URL, we can make the PUT request
+            setUser((user) => {
+              if (!user) throw new Error("User is not defined")
+              return {
+                ...user,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                avatar: urlForAvatar,
+              }
+            })
 
-        const requestOptions: RequestInit = {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName: values.firstName,
-            lastName: values.lastName,
-            avatar: urlForAvatar, // urlForAvatar is now available here
-          }),
-        }
-
-        fetch(`${apiUrl}/users/${idOfUser}`, requestOptions)
-          .then((response) => {
-            // Check if the request was successful
-            if (!response.ok) {
-              throw new Error("Network response was not ok")
-            }
-            // Convert the response to JSON
-            const newUser = response.json()
-            return newUser
+            navigate("/homepage")
           })
-
+      } else {
+        await usersApi.updateUserProfile(user.id, firstName, lastName)
         setUser((user) => {
           if (!user) throw new Error("User is not defined")
 
@@ -135,138 +105,105 @@ export default function CreateProfile() {
             ...user,
             firstName: values.firstName,
             lastName: values.lastName,
-            avatar: urlForAvatar,
           }
         })
-
         navigate("/homepage")
-      })
-    } else {
-      // No image
-      const requestOptions: RequestInit = {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-        }),
       }
-
-      fetch(`${apiUrl}/users/${idOfUser}`, requestOptions)
-        .then((response) => {
-          // Check if the request was successful
-          if (!response.ok) {
-            throw new Error("Network response was not ok")
-          }
-          // Convert the response to JSON
-          const newUser = response.json()
-          return newUser
-        })
-
-      setUser((user) => {
-        if (!user) throw new Error("User is not defined")
-
-        return {
-          ...user,
-          firstName: values.firstName,
-          lastName: values.lastName,
-        }
-      })
-
-      navigate("/homepage")
     }
   }
 
   return (
-    <>
-      <motion.div
-        className="fixed h-full w-full bg-white box-border"
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={{ duration: 0.45, ease: [0.43, 0.13, 0.23, 0.96] }}
-      >
-        <Frame>
-          <img
-            className="rounded-full ring-2 ring-white h-20 w-20 mx-auto"
-            src={avatarImage}
-          />
+    <motion.div
+      className="fixed h-full w-full bg-white box-border"
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "-100%" }}
+      transition={{ duration: 0.45, ease: [0.43, 0.13, 0.23, 0.96] }}
+    >
+      <Frame>
+        <img
+          className="rounded-full ring-2 ring-white h-20 w-20 mx-auto"
+          src={avatarImage}
+        />
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-              <div className="text-center">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            <div className="text-center">
+              <FormField
+                control={form.control}
+                name="avatar"
+                render={({ field }) => (
+                  <FormItem className="hidden">
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                      <FormLabel htmlFor="picture">Profile Picture</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="picture"
+                          type="file"
+                          accept="image/jpeg, image/png, image/webp"
+                          {...fileRef}
+                        />
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="button"
+                className="bg-sherpa-900 mt-4"
+                onClick={() =>
+                  window.document.getElementById("picture")?.click()
+                }
+              >
+                Change profile picture
+              </Button>
+            </div>
+            <Card className="w-[350px] mt-10 pt-5">
+              <CardContent>
                 <FormField
                   control={form.control}
-                  name="avatar"
+                  name="firstName"
                   render={({ field }) => (
-                    <FormItem className="hidden">
-                      <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <FormLabel htmlFor="picture">Profile Picture</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="picture"
-                            type="file"
-                            accept="image/jpeg, image/png, image/webp"
-                            {...fileRef}
-                          />
-                        </FormControl>
-                      </div>
+                    <FormItem>
+                      <FormLabel>First Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your first name..."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="button"
-                  className="bg-sherpa-900 mt-4"
-                  onClick={() =>
-                    window.document.getElementById("picture")?.click()
-                  }
-                >
-                  Change profile picture
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Last Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your last name..."
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button className="mt-4 w-full" type="submit">
+                  Continue
                 </Button>
-              </div>
-              <Card className="w-[350px] mt-10 pt-5">
-                <CardContent>
-                  <FormField
-                    control={form.control}
-                    name="firstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>First Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your first name..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="lastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Last Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your last name..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button className="mt-4 w-full" type="submit">
-                    Continue
-                  </Button>
-                </CardContent>
-              </Card>
-            </form>
-          </Form>
-        </Frame>
-      </motion.div>
-    </>
+              </CardContent>
+            </Card>
+          </form>
+        </Form>
+      </Frame>
+    </motion.div>
   )
+}
+
+async function uploadAndGetDownloadURL(imageRef: StorageReference) {
+  return await getDownloadURL(imageRef)
 }

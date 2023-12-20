@@ -1,4 +1,3 @@
-import { apiUrl } from "@/lib/constants"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
@@ -9,6 +8,7 @@ import NoMatchImage from "@/assets/no-match.svg"
 import AvatarPlaceholderImage from "@/assets/avatar-placeholder.svg"
 import { cn } from "@/lib/utils"
 import moment from "moment"
+import matchesApi from "@/lib/matchesApi"
 
 enum MATCH_STATUS {
   NOT_IN_POOL = "NOT_IN_POOL",
@@ -30,21 +30,17 @@ export default function ViewMeeting() {
 
   useEffect(() => {
     async function getMatch() {
-      const response = await fetch(`${apiUrl}/matches/${user?.id}`)
-      if (!response.ok) {
-        throw new Error("Failed to fetch match")
+      if (user) {
+        const match = await matchesApi.getUserMatch(user.id)
+        setMatch({
+          status: match.status,
+          match: match.match,
+          nextEventTime: new Date(match.nextEventTime),
+        })
       }
-
-      const responseData = await response.json()
-      setMatch({
-        status: responseData.status,
-        match: responseData.match,
-        nextEventTime: new Date(responseData.nextEventTime),
-      })
     }
-
     getMatch()
-  }, [])
+  }, [user])
 
   return (
     <motion.div

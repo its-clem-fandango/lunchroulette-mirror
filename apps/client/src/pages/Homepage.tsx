@@ -1,4 +1,3 @@
-import rouletteimage from "../assets/roulette-logo.svg"
 import roulettewheel from "../assets/roulette-wheel.svg"
 import CountdownTimer from "@/components/CountdownTimer/CountdownTimer"
 import { Loader2 } from "lucide-react"
@@ -6,16 +5,15 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useUserContext } from "@/lib/UserContext"
-import { apiUrl } from "@/lib/constants"
-import { motion } from "framer-motion"
 import { Frame } from "@/components/ui/frame"
 import { Header } from "@/components/Header"
 import { cn } from "@/lib/utils"
+import usersApi from "@/lib/usersApi"
 
 export default function Homepage() {
   const [loading, setLoading] = useState(false)
-  const [lunchTime, setLunchTime] = useState(new Date().setHours(13, 0, 0, 0))
-  const [userState, setUserState] = useUserContext()
+  const [lunchTime] = useState(new Date().setHours(13, 0, 0, 0))
+  const [userState] = useUserContext()
 
   const navigate = useNavigate()
 
@@ -24,22 +22,7 @@ export default function Homepage() {
     setTimeout(async () => {
       try {
         if (userState) {
-          const response = await fetch(
-            `${apiUrl}/users/availableToday/${userState.id}`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                isAvailableToday: true,
-              }),
-            }
-          )
-
-          if (!response.ok) {
-            throw new Error(`Request failed, Status: ${response.status}`)
-          }
+          await usersApi.toggleIsAvailableToday(userState.id)
         }
       } catch (error) {
         console.log(error)
