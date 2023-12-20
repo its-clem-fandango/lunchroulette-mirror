@@ -15,7 +15,7 @@ const UsersController = {
   },
 
   async createUser(req: Request, res: Response) {
-    console.log("Request", req.body)
+
     try {
       const displayName = req.body.displayName
 
@@ -70,18 +70,15 @@ const UsersController = {
 
   async toggleIsAvailableToday(req: Request, res: Response) {
     try {
-      console.log("triggered toggle method")
       const userId = req.params.id
       const user = await UserModel.findById(userId)
 
-      console.log("found user", user)
       if (!user) throw new Error("No such user exists")
 
       const data = { isAvailableToday: false }
       if (!user.isAvailableToday) data.isAvailableToday = true
 
       const updatedUser = await UserModel.update(userId, data)
-      console.log("updated user", updatedUser)
       res.status(200).json(updatedUser)
     } catch (error) {
       res.status(400).json(error)
@@ -94,8 +91,6 @@ const UsersController = {
     await Promise.all(
       matchedUsers.map(async (user) => {
         if (!user.matchId) {
-          console.log("No match found for", user.firstName)
-          // TODO: Send email to user that no match was found
           return
         }
         const match = await UserModel.findById(user.matchId)
@@ -110,10 +105,7 @@ const UsersController = {
 
     const usersToUpdate = matchedUsers
 
-    console.log({ usersToUpdate })
-
     await UserModel.updateBatch(usersToUpdate)
-    console.log("Inside getMatches function")
 
     res.status(200).json(matchedUsers)
   },

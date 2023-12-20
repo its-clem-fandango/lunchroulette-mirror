@@ -17,7 +17,6 @@ function App() {
 
   const setUserWithLocalStorage = useCallback(
     function (userData: SetStateAction<UserData | null>) {
-      console.log({ user })
       const newUserData =
         userData instanceof Function ? userData(user) : userData
       localStorage.setItem("LRUser", JSON.stringify(newUserData))
@@ -27,7 +26,7 @@ function App() {
   )
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       if (!user) return
       const response = await fetch(`${apiUrl}/users/${user?.id}`)
       const data = await response.json()

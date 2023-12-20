@@ -11,8 +11,6 @@ type TodaysLunchProps = {
 }
 
 function TodaysLunch({ matches, time, location, className }: TodaysLunchProps) {
-  // who, when, where
-  console.log(matches)
 
   return (
     <Card className={cn("w-[350px] mx-10 mb-5 shadow-green-600", className)}>

@@ -49,7 +49,6 @@ export default function Homepage() {
   }
 
   useEffect(() => {
-    console.log({ userState })
     if (userState?.isAvailableToday) {
       navigate("/viewmeeting")
     }

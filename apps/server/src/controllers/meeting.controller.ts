@@ -59,7 +59,6 @@ const MeetingController = {
     const today = moment()
     const isLastMatchedToday = lastMatched.isSame(today, "day")
 
-    console.log({ isLastMatchedToday, user })
     if (user.lastMatched === null || !isLastMatchedToday) {
       return res.json({
         status: MATCH_STATUS.PENDING_FOR_MATCH,

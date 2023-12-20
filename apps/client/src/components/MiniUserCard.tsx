@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils"
 type UserMiniCardProps = { name: string; avatar: string; className?: string }
 
 function UserMiniCard({ name, avatar, className }: UserMiniCardProps) {
-  console.log(avatar)
 
   return (
     <div

@@ -59,8 +59,6 @@ export default function AdminPanel() {
           if (user.isAvailableToday) {
             user.isAvailableToday = false
 
-            console.log("User ID: ", user.id)
-
             const patchResponse = await fetch(
               `${apiUrl}/users/availableToday/${user.id}`,
               {
@@ -75,9 +73,7 @@ export default function AdminPanel() {
             )
 
             if (patchResponse.ok) {
-              const patchData = await patchResponse.json()
-              console.log("Patch DATA: ", patchData)
-              console.log("Availability Reset")
+              await patchResponse.json()
             }
           } else {
             console.error("Failed to Reset Availability")
@@ -100,8 +96,6 @@ export default function AdminPanel() {
         for (const user of usersData) {
           if (!user.isAvailableToday) {
             user.isAvailableToday = true
-
-            console.log("User ID: ", user.id)
 
             const patchResponse = await fetch(
               `${apiUrl}/users/availableToday/${user.id}`,

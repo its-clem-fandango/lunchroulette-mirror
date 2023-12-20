@@ -32,9 +32,9 @@ export default function CreateProfile() {
   const avatarSchema = userHasAvatar
     ? z.any().optional() // Make avatar optional if the user already has one
     : z
-        .any()
-        .refine((files) => files.length >= 1, "Image is required.")
-        .refine((files) => files[0].size <= 5000000, "Max file size is 5MB.")
+      .any()
+      .refine((files) => files.length >= 1, "Image is required.")
+      .refine((files) => files[0].size <= 5000000, "Max file size is 5MB.")
   const formSchema = z.object({
     firstName: z.string().min(2).max(50).default(""),
     lastName: z.string().min(2).max(50).default(""),
@@ -78,7 +78,6 @@ export default function CreateProfile() {
       return getDownloadURL(imageRef)
         .then((url) => {
           // The URL is now returned from this function
-          console.log("image url", url)
           return url // This is the important change
         })
         .catch((error) => {
@@ -128,11 +127,6 @@ export default function CreateProfile() {
             const newUser = response.json()
             return newUser
           })
-          .then((data) => {
-            // Handle the data (JSON)
-            console.log(data)
-            console.log("hello")
-          })
 
         setUser((user) => {
           if (!user) throw new Error("User is not defined")
@@ -167,11 +161,6 @@ export default function CreateProfile() {
           // Convert the response to JSON
           const newUser = response.json()
           return newUser
-        })
-        .then((data) => {
-          // Handle the data (JSON)
-          console.log(data)
-          console.log("hello")
         })
 
       setUser((user) => {
