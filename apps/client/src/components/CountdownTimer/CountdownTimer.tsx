@@ -7,7 +7,11 @@ const defaultRemainingTime = {
   seconds: "00",
 }
 
-const CountdownTimer = ({ countdownTimestampMs }: any) => {
+interface CountdownTimerProps {
+  countdownTimestampMs: number
+}
+
+const CountdownTimer: React.FC<CountdownTimerProps> = ({ countdownTimestampMs }) => {
   const [remainingTime, setRemainingTime] = useState(defaultRemainingTime)
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const CountdownTimer = ({ countdownTimestampMs }: any) => {
     return () => clearInterval(intervalId)
   }, [countdownTimestampMs])
 
-  function updateRemainingTime(countdown: any) {
+  function updateRemainingTime(countdown: number) {
     setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown))
   }
 
