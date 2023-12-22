@@ -104,96 +104,90 @@ function WalkthroughStep1() {
 
 function WalkthroughStep2() {
   return (
-    <>
-      <motion.div
-        style={{ zIndex: 1000 }}
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={transition}
-      >
-        <h2 className="text-sherpa-500 font-bold  text-xl m-4">
-          1. Join the Pool 🤿
-        </h2>
-        <p className="my-10">
-          Simply <strong>link your Google account</strong> and{" "}
-          <strong>personalize your profile</strong> for easy recognition.
-        </p>
-        <p className="my-10">
-          Then, whenever you're in the mood to mingle,{" "}
-          <strong>hop into our daily matching pool</strong> and{" "}
-          <strong>we'll pair you up</strong> for an engaging lunch date!
-        </p>
-        <img
-          src={avatar1}
-          alt="An example of an avatar"
-          className="my-8 mx-auto h-48"
-        />
-      </motion.div>
-    </>
+    <motion.div
+      style={{ zIndex: 1000 }}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "-100%" }}
+      transition={transition}
+    >
+      <h2 className="text-sherpa-500 font-bold  text-xl m-4">
+        1. Join the Pool 🤿
+      </h2>
+      <p className="my-10">
+        Simply <strong>link your Google account</strong> and{" "}
+        <strong>personalize your profile</strong> for easy recognition.
+      </p>
+      <p className="my-10">
+        Then, whenever you're in the mood to mingle,{" "}
+        <strong>hop into our daily matching pool</strong> and{" "}
+        <strong>we'll pair you up</strong> for an engaging lunch date!
+      </p>
+      <img
+        src={avatar1}
+        alt="An example of an avatar"
+        className="my-8 mx-auto h-48"
+      />
+    </motion.div>
   )
 }
 
 function WalkthroughStep3() {
   return (
-    <>
-      <motion.div
-        style={{ zIndex: 1000 }}
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={transition}
-      >
-        <h2 className="text-sherpa-500 font-bold  text-xl m-4">
-          2. Get Matched 🤖
-        </h2>
-        <p className="my-10">
-          <strong>Right before 1pm</strong>, <br /> keep an eye on your inbox!
-        </p>
-        <p className="my-10">
-          <strong>
-            We'll send you an email revealing your lunch partner for the day
-          </strong>
-          , making it effortless to connect and enjoy your mealtime encounter
-        </p>
-        <img
-          src={avatar1and2}
-          alt="An example of an avatar"
-          className="my-8 mx-auto h-48"
-        />
-      </motion.div>
-    </>
+    <motion.div
+      style={{ zIndex: 1000 }}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "-100%" }}
+      transition={transition}
+    >
+      <h2 className="text-sherpa-500 font-bold  text-xl m-4">
+        2. Get Matched 🤖
+      </h2>
+      <p className="my-10">
+        <strong>Right before 1pm</strong>, <br /> keep an eye on your inbox!
+      </p>
+      <p className="my-10">
+        <strong>
+          We'll send you an email revealing your lunch partner for the day
+        </strong>
+        , making it effortless to connect and enjoy your mealtime encounter
+      </p>
+      <img
+        src={avatar1and2}
+        alt="An example of an avatar"
+        className="my-8 mx-auto h-48"
+      />
+    </motion.div>
   )
 }
 
 function WalkthroughStep4({ onSkip }: { onSkip: () => void }) {
   return (
-    <>
-      <motion.div
-        style={{ zIndex: 1000 }}
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={transition}
-      >
-        <h2 className="text-sherpa-500 font-bold text-xl m-4">
-          3. Grow your network 🕺
-        </h2>
-        <p className="my-10">You're all set!</p>
-        <p className="my-10">
-          <strong>Meet your lunch buddy in the lobby</strong> and decide
-          together: Will it be Honest Greens today, or are you feeling
-          adventurous?
-        </p>
-        <p className="my-10">
-          <strong>Explore and enjoy</strong> various cool eateries around us,
-          adding a dash of excitement to your lunchtime!
-        </p>
-        <p className="my-10 text-5xl">😋</p>
-        <Button onClick={onSkip} className="bg-sherpa-900">
-          Sounds Lit! <span className="ml-2">🔥</span>
-        </Button>
-      </motion.div>
-    </>
+    <motion.div
+      style={{ zIndex: 1000 }}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "-100%" }}
+      transition={transition}
+    >
+      <h2 className="text-sherpa-500 font-bold text-xl m-4">
+        3. Grow your network 🕺
+      </h2>
+      <p className="my-10">You're all set!</p>
+      <p className="my-10">
+        <strong>Meet your lunch buddy in the lobby</strong> and decide
+        together: Will it be Honest Greens today, or are you feeling
+        adventurous?
+      </p>
+      <p className="my-10">
+        <strong>Explore and enjoy</strong> various cool eateries around us,
+        adding a dash of excitement to your lunchtime!
+      </p>
+      <p className="my-10 text-5xl">😋</p>
+      <Button onClick={onSkip} className="bg-sherpa-900">
+        Sounds Lit! <span className="ml-2">🔥</span>
+      </Button>
+    </motion.div>
   )
 }
