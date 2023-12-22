@@ -1,5 +1,5 @@
 import CreateProfile from "@/pages/CreateProfile"
-import Homepage from "@/pages/Homepage"
+import HomePage from "@/pages/HomePage"
 import LandingPage from "@/pages/LandingPage"
 import ViewMeeting from "@/pages/ViewMeeting"
 import AdminPanel from "@/tools/AdminPanel"
@@ -15,7 +15,7 @@ export default function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/profile" element={<CreateProfile />}></Route>
-        <Route path="/homepage" element={<Homepage />}></Route>\{" "}
+        <Route path="/homepage" element={<HomePage />}></Route>
         <Route path="/viewmeeting" element={<ViewMeeting />}></Route>
         <Route path="/devcontrolpanel" element={<AdminPanel />}></Route>
       </Routes>

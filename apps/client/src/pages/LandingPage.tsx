@@ -5,16 +5,12 @@ import SignIn from "@/components/SignIn"
 import { useNavigate } from "react-router-dom"
 import { Frame } from "@/components/ui/frame"
 
-// Refactor so we don't repeat (this goes in the context?)
-
 export default function LandingPage() {
   const [_, setUser] = useUserContext()
   const navigate = useNavigate()
 
   function handleSignIn(newUser: UserData) {
-    // Store in the context
     setUser(newUser)
-    // Navigate  (programatically)
     navigate("/profile")
   }
 
