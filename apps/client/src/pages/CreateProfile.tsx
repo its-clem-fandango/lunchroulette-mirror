@@ -82,7 +82,7 @@ export default function CreateProfile() {
 
         uploadAndGetDownloadURL(imageRef)
           .then(async (urlForAvatar) => {
-            await usersApi.updateUserProfile(user.id, values.firstName, values.lastName, values.avatar)
+            await usersApi.updateUserProfile(user.id, values.firstName, values.lastName, urlForAvatar)
 
             setUser((user) => {
               if (!user) throw new Error("User is not defined")

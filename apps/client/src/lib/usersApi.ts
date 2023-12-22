@@ -57,6 +57,7 @@ const updateUserProfile = async (id: string, firstName?: string, lastName?: stri
     firstName,
     lastName
   }
+
   const payload = JSON.stringify(body)
   const requestOptions = makeRequestOptions('PUT', payload)
   const response = await fetch(`${PATH}/${id}`, requestOptions)
